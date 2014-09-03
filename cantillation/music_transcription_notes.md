@@ -16,5 +16,11 @@ Music transcription notes
 
         > For actually notating the music digitally, you'd probably enjoy Lilypond, a GPLed LaTeX-esque Scheme-based markup language for sheet music. Its default output is loads better than commercial software that costs hundreds of dollars, and if you're already approaching things from a programmer mindset it's not hard to learn. … Lilypond's default output is significantly better than the default output of Finale/Sibelius
 
+ 1. Suggestions from http://music.stackexchange.com/questions/4514:
+
+   1. Generate Midi first.
+   1. http://codingteam.net/project/scolily
+   1. "[Synthesia](http://synthesiagame.com/) can display sheet music from a midi."
+   1. Note-recognition system such as [SeventhString](http://www.seventhstring.com/xscribe/overview.html)
 
 [end]
