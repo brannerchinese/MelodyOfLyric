@@ -9,5 +9,12 @@ Music transcription notes
    1. At http://www.hotfrog.com/Companies/Dylan-Roberts-Music found: http://www.dylanrobertsmusic.com. dylanrobertsmusic@gmail.com
 
  1. Matt Ostrowski. Wrote to ask about transcription and notation services/tools, 20140903. He says everyone uses Sibelius for notation now.
+ 
+ 1. Jeff Fowler and Kat Barone-Adesi recommend using Praat to detect pitches.
+ 
+ 1. Mike Walker says:
+
+        > For actually notating the music digitally, you'd probably enjoy Lilypond, a GPLed LaTeX-esque Scheme-based markup language for sheet music. Its default output is loads better than commercial software that costs hundreds of dollars, and if you're already approaching things from a programmer mindset it's not hard to learn. … Lilypond's default output is significantly better than the default output of Finale/Sibelius
+
 
 [end]
