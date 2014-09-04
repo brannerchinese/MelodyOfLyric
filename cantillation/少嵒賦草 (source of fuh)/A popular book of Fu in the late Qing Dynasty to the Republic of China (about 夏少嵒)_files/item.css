@@ -1,0 +1,246 @@
+div#content div.sidemenu div.container div ul li a { color: #4eac2e; }
+
+table {
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+
+th {
+	font-weight: bold;
+}
+
+div#item-box-menu {
+}
+
+div#item-box-menu ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+div#item-box-menu ul li {
+	display: inline-block;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 2px solid #000;
+	padding: 5px;
+	cursor: pointer;
+	*display: inline;
+	zoom: 1;
+}
+
+div#item-box-content {
+	margin-top: -1px;
+	min-height: 360px;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-right: 2px solid #000;
+}
+
+div#item-box-menu ul li.item-box-current {
+	border-bottom: 1px solid #fff;
+}
+
+div.item-box-contentview {
+	display: none;
+}
+
+div.current-view {
+	display: block;
+}
+
+div.itemRecord table {
+	border: 0px;
+	width: 100%;
+}
+
+div.itemRecord table tr td {
+	background-color: #fff;/*rgba(230, 230, 230, .55);*/
+}
+
+div.itemRecord table tr td:hover {
+	background-color: rgb(220, 220, 220);
+}
+
+div.itemRecord table tr th {
+	width: 150px;
+	vertical-align: top;
+	text-align: right;
+	background-color: rgb(220, 220, 220);
+}
+
+div#itemCollections {
+	margin-top: 10px;
+}
+
+div#itemCollections > span {
+	font-weight: bold;
+	font-style: italic;
+}
+
+div#content div.sidemenu div.container div#itemCollections > ul, div#content div.sidemenu div.container div#bitstreams > ul, div#content div.sidemenu div.container div.citedCount > ul {
+	list-style-type: none;
+	padding-left: 10px;
+	margin: 5px 2px 5px 0px;
+}
+
+div#bitstreams > ul {
+	list-style-type: none;
+}
+
+div#bitstreams-top0, div#bitstreams-top1, div#bitstreams-top2,
+div#bitstreams-bottom0, div#bitstreams-bottom1, div#bitstreams-bottom2 {
+	border-bottom: 1px solid pink;
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+div#bitstreams-top1, div#bitstreams-bottom1 {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+div#bitstreams-top2, div#bitstreams-bottom2 {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+div#bitstreams {
+/*	border-top: 2px solid #c0c0c0;*/
+	background-color: pink;
+	padding: 5px;
+}
+
+div#bitstreams > span, div#supplementary > span, div#patent-history > span, div#patent-family > span {
+	font-size: 110%;
+	display: block;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #000;
+	font-weight: bold;
+	margin-bottom: 7px;
+}
+
+div#bitstreams > span {
+	color: red;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul > li {
+	padding-bottom: 3px;
+	padding-left: 17px;
+	background: url(../image/file-icon.gif) top left no-repeat;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul > li.pdf-type {
+	background: url(../image/pdf-icon.gif) top left no-repeat;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul > li.html-type {
+	background: url(../image/html-icon.gif) top left no-repeat;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul > li.word-type {
+	background: url(../image/word-icon.gif) top left no-repeat;
+}
+
+div#content div.sidemenu div.container div#bitstreams > ul > li.null-type {
+	background: none;
+}
+
+div#patent-history, div#patent-family {
+	margin-top: 10px;
+	background-color: #b2e6ff;
+	padding: 5px;
+}
+
+div#patent-history > ul, div#patent-family > ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+div#content div#patent-history ul li {
+	background: none;
+}
+
+div#patent-history div.patent-type {
+	font-weight: bold;
+	font-style: italic;
+	vertical-align: top;
+	min-width: 80px;
+	display: inline-block;
+}
+
+div#patent-history div.patent-type-content {
+	display: inline-block;
+}
+
+div#content div#patent-family ul li {
+	background: none;
+	font-weight: bold;
+}
+
+div#supplementary {
+	margin-top: 10px;
+	background-color: #ffd;
+	padding: 5px;
+}
+
+div#content div.sidemenu div.container div#supplementary > ul {
+	list-style-type: none;
+	padding-left: 14px;
+	margin: 5px 2px 5px 0px;
+}
+
+.citedCount { 
+	display: none;
+}
+
+div.citedCount > span, div.itemBookmarks > span {
+	font-style: italic;
+	font-weight: bold;
+}
+
+div#content div.sidemenu div.container div.citedCount > ul > li {
+	display: block;
+	padding-bottom: 3px;
+}
+
+div.citedByDiv {
+	display: inline;
+}
+
+div#wosCitedRelatedLink {
+	margin-left: 10px;
+	text-decoration: underline;
+}
+
+div#wosCitedRelatedLink a {
+	color: green;
+}
+
+div#itemStatistics {
+	margin-top: 10px;
+}
+
+span.boxpopup3 {
+/*        color:#660000;*/
+	color: #b28b2c;
+        border-bottom:1px dotted #046; cursor: default;
+        text-decoration:none;
+        font-style:italic;
+        font-weight:bold;
+}
+
+div.affiliation { background-color: cornsilk; padding: 5px; margin-top: 10px; }
+div.affiliation span { font-weight: bold; }
+div.affiliation ol { list-style-type: decimal; margin-left: 20px; margin-top: 5px; }
+span.affiliation { display: inline-block; vertical-align: super; font-size: 80%; }
+span.authority_scopus { display: inline-block; background: url(/images_new/scopus.gif) no-repeat left center; margin-left: 10px; vertical-align: middle; margin-top: -3px; }
+span.authority_scopus a { display: block; width: 16px; height: 16px; }
+
+tr.itemSeparatorRow { display: none; }

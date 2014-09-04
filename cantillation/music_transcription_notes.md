@@ -40,7 +40,7 @@ Music transcription notes
 
  1. Recommendations at http://stackoverflow.com/questions/5852102/software-to-convert-audio-to-midi:
  
-   1. WAV to MIDI: [WaoN](http://waon.sourceforge.net/). "read wav file and write standard MIDI file format 0."
+   1. WAV to MIDI: **[WaoN](http://waon.sourceforge.net/)**. "read wav file and write standard MIDI file format 0." Available on HomeBrew (20140903).
    1. [SoX](http://sox.sourceforge.net/). SoX is a cross-platform (Windows, Linux, MacOS X, etc.) command line utility that can convert various formats of computer audio files in to other formats. It can also apply various effects to these sound files, and, as an added bonus, SoX can play and record audio files on most platforms.
 
  1. Recommendations at http://pedrokroger.net/converting-midi-files-mp3-mac-os/:
