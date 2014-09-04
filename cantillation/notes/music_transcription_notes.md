@@ -25,7 +25,7 @@ Music transcription notes
 
  1. Suggestions from http://dsp.stackexchange.com/questions/10364:
  
-   1. **[Aubio](http://aubio.org/)**. DPB finds available through Homebrew (20140903). Use `brew install aubio --with-python`, but use `pip` to install `numpy` first (Python 2 only). But insurmountable problems compiling; abandoned.
+   1. [Aubio](http://aubio.org/). DPB finds available through Homebrew (20140903). Use `brew install aubio --with-python`, but use `pip` to install `numpy` first (Python 2 only). But insurmountable problems compiling; abandoned.
    1. [MuseScore](http://musescore.org/) (open-source alternative to Sibelius). See also http://www.osalt.com/musescore.
 
  1. Ubuntu results, from http://ubuntuforums.org/showthread.php?t=2198434:
@@ -45,7 +45,9 @@ Music transcription notes
 
  1. Recommendations at http://pedrokroger.net/converting-midi-files-mp3-mac-os/:
  
-   1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate a MP3 from a MIDI
+   1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate a MP3 from a MIDI. Installation instructions at http://apple.stackexchange.com/questions/107297/how-can-i-play-a-midi-file-from-terminal:
+     1. Downloaded `GeneralUser` SoundFont from http://www.schristiancollins.com/generaluser.php.
+     1. Renamed file `GeneralUser GS FluidSynth v1.44.sf2` to `GeneralUser_GS_FluidSynth_v1.44.sf2` and moved it to location of `fluidsynth` (which is a symlink, so follow that link to the directory's true location).
    1. Midi-to-sound-files: [Timidity++](http://timidity.sourceforge.net/#info). "TiMidity++ is a software synthesizer. It can play MIDI files by converting them into PCM waveform data; give it a MIDI data along with digital instrument data files, then it synthesizes them in real-time, and plays. It can not only play sounds, but also can save the generated waveforms into hard disks as various audio file formats."
 
  1. Others:
@@ -53,5 +55,9 @@ Music transcription notes
    1. [Mingus](https://code.google.com/p/mingus/) for Python.
    1. [transcribe-melodies](https://code.google.com/p/transcribe-melodies/) for Python. "Use the Echo Nest audio analysis tools (http://developer.echonest.com/docs/v4/_static/AnalyzeDocumentation_2.2.pdf) to segment the audio into notes and identify each note's pitch and duration. Then make a representation of the melody in music21 (http://mit.edu/music21/) to easily analyse, make notation, or make midi."
    1. [PythonInMusic](https://wiki.python.org/moin/PythonInMusic) for Python. 
-   
+
+ 1. Midi editors
+ 
+   1. midicsv: Convert `.mid` to or from `.csv`.
+
 [end]
