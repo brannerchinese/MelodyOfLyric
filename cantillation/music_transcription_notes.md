@@ -34,8 +34,24 @@ Music transcription notes
    1. Service: http://customguitartabs.com/.
    1. "There's also denemo, which is in the Software Center. It's not easy to install and has a rather steep learning curve. It also uses lilypond, and the printed pages are as professional looking as any you will ever see. I've used it before."
 
- 1. DPB also found, at http://en.softonic.com/s/music-note-recognition-software:
+ 1. Recommendations at http://en.softonic.com/s/music-note-recognition-software:
  
    1. [Audio To MiDi VST](http://audio-to-midi-vst.en.softonic.com/): "Real-time Audio to MIDI conversion. The plugin receives input from an audio channel and performs real-time music recognition. Resulting MIDI events can be sent to the VST host, System MIDI Out Device or to a MIDI file."
 
+ 1. Recommendations at http://stackoverflow.com/questions/5852102/software-to-convert-audio-to-midi:
+ 
+   1. WAV to MIDI: [WaoN](http://waon.sourceforge.net/). "read wav file and write standard MIDI file format 0."
+   1. [SoX](http://sox.sourceforge.net/). SoX is a cross-platform (Windows, Linux, MacOS X, etc.) command line utility that can convert various formats of computer audio files in to other formats. It can also apply various effects to these sound files, and, as an added bonus, SoX can play and record audio files on most platforms.
+
+ 1. Recommendations at http://pedrokroger.net/converting-midi-files-mp3-mac-os/:
+ 
+   1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate a MP3 from a MIDI
+   1. Midi-to-sound-files: [Timidity++](http://timidity.sourceforge.net/#info). "TiMidity++ is a software synthesizer. It can play MIDI files by converting them into PCM waveform data; give it a MIDI data along with digital instrument data files, then it synthesizes them in real-time, and plays. It can not only play sounds, but also can save the generated waveforms into hard disks as various audio file formats."
+
+ 1. Others:
+ 
+   1. [Mingus](https://code.google.com/p/mingus/) for Python.
+   1. [transcribe-melodies](https://code.google.com/p/transcribe-melodies/) for Python. "Use the Echo Nest audio analysis tools (http://developer.echonest.com/docs/v4/_static/AnalyzeDocumentation_2.2.pdf) to segment the audio into notes and identify each note's pitch and duration. Then make a representation of the melody in music21 (http://mit.edu/music21/) to easily analyse, make notation, or make midi."
+   1. [PythonInMusic](https://wiki.python.org/moin/PythonInMusic) for Python. 
+   
 [end]
