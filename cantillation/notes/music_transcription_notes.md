@@ -25,7 +25,7 @@ Music transcription notes
 
  1. Suggestions from http://dsp.stackexchange.com/questions/10364:
  
-   1. **[Aubio](http://aubio.org/)**. DPB finds available through Homebrew (20140903).
+   1. **[Aubio](http://aubio.org/)**. DPB finds available through Homebrew (20140903). Use `brew install aubio --with-python`, but use `pip` to install `numpy` first (Python 2 only). But insurmountable problems compiling; abandoned.
    1. [MuseScore](http://musescore.org/) (open-source alternative to Sibelius). See also http://www.osalt.com/musescore.
 
  1. Ubuntu results, from http://ubuntuforums.org/showthread.php?t=2198434:
