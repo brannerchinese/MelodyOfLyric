@@ -42,7 +42,7 @@ Music transcription notes
  
    1. WAV to MIDI: **[WaoN](http://waon.sourceforge.net/)**. "read wav file and write standard MIDI file format 0." Available on HomeBrew (20140903).
    1. [SoX](http://sox.sourceforge.net/). SoX is a cross-platform (Windows, Linux, MacOS X, etc.) command line utility that can convert various formats of computer audio files in to other formats. It can also apply various effects to these sound files, and, as an added bonus, SoX can play and record audio files on most platforms.
-   1. See `[Inst2Midi](http://www.nerds.de/en/ipmidi_osx.html)` (mentioned in WaoN README file).
+   1. See `[Inst2Midi](http://www.nerds.de/en/ipmidi_osx.html)` (mentioned in WaoN README file). Proprietary and only trial version is free.
    1. See Markus and Sims article (mentioned in WaoN README file).
 
  1. Recommendations at http://pedrokroger.net/converting-midi-files-mp3-mac-os/:
@@ -61,5 +61,10 @@ Music transcription notes
  1. Midi editors
  
    1. `midicsv`, `csvmidi`: Convert `.mid` to or from `.csv`.
+
+ 1. Midi protocol
+ 
+   1. http://www.midi.org/techspecs/midimessages.php
+   1. http://www.sonicspot.com/guide/midifiles.html
 
 [end]
