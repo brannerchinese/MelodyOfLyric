@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # edit_midi.py
 # David Prager Branner
-# 20140904
+# 20140905, works.
 
 import sys
 if sys.version_info.major < 3:
