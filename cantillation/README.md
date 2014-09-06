@@ -7,7 +7,7 @@
  1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate raw soundfile from a MIDI. Installation instructions at http://apple.stackexchange.com/questions/107297/how-can-i-play-a-midi-file-from-terminal:
      1. Download [`GeneralUser` SoundFont](http://www.schristiancollins.com/generaluser.php).
      1. Rename file `GeneralUser GS FluidSynth v1.44.sf2` to `GeneralUser_GS_FluidSynth_v1.44.sf2` and move it to location of `fluidsynth` install (which is a symlink, so follow that link to the directory's true location).
- 1. [SoX](): convert raw soundfile to `.wav` etc.
+ 1. [SoX (Sound eXchange](http://sox.sourceforge.net/): convert raw soundfile to `.wav` etc.
 
 ### Background on MIDI
 
