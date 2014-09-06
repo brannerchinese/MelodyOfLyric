@@ -2,7 +2,7 @@
 
 ### Non-Python requirements
 
- 1. [WaoN](https://github.com/kichiki/WaoN) for converting `.wav` to `.mid` (MIDI). (Available through HomeBrew.)
+ 1. [WaoN](https://github.com/kichiki/WaoN) for converting `.wav` to `.mid` (MIDI). (Available through HomeBrew.) Note that SoX does not currently support conversion to MIDI.
  1. [MIDICSV](http://www.fourmilab.ch/webtools/midicsv/) (includes CSVMIDI) for conversion between `.mid` MIDI files and text-editable `.csv` files. (Available through HomeBrew.)
  1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate a MP3 from a MIDI. Installation instructions at http://apple.stackexchange.com/questions/107297/how-can-i-play-a-midi-file-from-terminal:
      1. Download [`GeneralUser` SoundFont](http://www.schristiancollins.com/generaluser.php).
