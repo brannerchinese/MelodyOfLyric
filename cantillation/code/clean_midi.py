@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# edit_midi.py
+# clean_midi.py
 # David Prager Branner
 # 20140905, works.
 
@@ -49,6 +49,8 @@ def main(filename='output.csv'):
         if current_events:
             largest = H.nlargest(1, current_events, key=lambda i: i[1])[0]
             if largest != current_note:
+                # Add "on" event for new "largest".
+                final_melody.append(largest)
                 # Create "off" event for "current_note"; add to final_melody.
                 # But at index = 0, there is no "current_note" yet.
                 if current_note:
@@ -58,8 +60,6 @@ def main(filename='output.csv'):
                     final_melody.append(off_event)
                 # Assign new highest-velocity value to "current_note".
                 current_note = largest
-                # Add "on" event for new "current_note".
-                final_melody.append(largest)
     # Finally, last "off" event must occur at actual time in original.
     final_time = events[-1][1]
     off_event = ('1', final_time, 'Note_off_c', '0', current_note[4], '64')
@@ -84,4 +84,7 @@ if __name__ == '__main__':
         filename = 'output.csv'
     else:
         filename = sys.argv[1]
-    main(filename)
+        if filename.split('.')[-1] == 'csv':
+            main(filename)
+        else:
+            print('Input filename must end in .csv')
