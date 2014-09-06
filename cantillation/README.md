@@ -23,10 +23,10 @@
 
         python clean_midi
 
-   for default filename `output.csv`.
+   for default input filename `output.csv` and output `output_edited.csv`.
 
  1. Convert `.csv` to `.mid`:
  
-        csvmidi output.csv > output.csv.mid
+        csvmidi output_edited.csv > output.csv.mid
 
 [end]
