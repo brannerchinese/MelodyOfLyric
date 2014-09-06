@@ -67,4 +67,12 @@ Music transcription notes
    1. http://www.midi.org/techspecs/midimessages.php
    1. http://www.sonicspot.com/guide/midifiles.html
 
+ 1. Transcription to traditional notation
+ 
+   1. [ABC Plus](http://abcplus.sourceforge.net/)
+   1. [LilyPond](http://www.lilypond.org/)
+   1. [MusiXtEx](http://icking-music-archive.org/software/htdocs/index.html)
+   1. [personal discussion](http://www.tug.org/tugboat/tb29-3/tb93mccool.pdf)
+   1. [MusiXTeX vs. LilyPond](http://tex.stackexchange.com/questions/136571/musixtex-vs-lilypond/136601#136601)
+
 [end]
