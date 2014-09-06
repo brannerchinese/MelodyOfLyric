@@ -72,7 +72,7 @@ Music transcription notes
    1. [ABC Plus](http://abcplus.sourceforge.net/).
    1. [LilyPond](http://www.lilypond.org/). On importing MIDI see [this page](http://serpentpublications.org/laymusic/?p=1538). (Available in HomeBrew.)
    1. [MusiXtEx](http://icking-music-archive.org/software/htdocs/index.html). See discussion of NoteEdit for importing MIDI, on [this page](http://icking-music-archive.org/software/indexmt6-2012-12.html).
-   1. [RoseGarden](http://www.rosegardenmusic.com/).
+   1. [RoseGarden](http://www.rosegardenmusic.com/). For Unix only.
    1. [personal discussion](http://www.tug.org/tugboat/tb29-3/tb93mccool.pdf)
    1. [MusiXTeX vs. LilyPond](http://tex.stackexchange.com/questions/136571/musixtex-vs-lilypond/136601#136601)
 
