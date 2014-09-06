@@ -49,11 +49,12 @@
 
         fluidsynth -i <soundfont> <MIDI file>
 
-What I have heard so far is poor, but actually better than hand-transcribed material I paid for. Possibly the transcriber was also using automated processes.
-
- 1. To convert the MIDI file to `.wav` etc.:
+ 1. Optionally, to convert the MIDI file to `.wav` etc.:
 
         fluidsynth -i <soundfont> <MIDI file> -F <raw_file.raw>
         sox -t raw -r 44100 -e signed -b 16 -c 1 <raw_file.raw> <sound_file.wav>
+
+What I have heard so far is poor, but actually better than hand-transcribed material I paid for. Possibly the transcriber was also using automated processes.
+
 
 [end]
