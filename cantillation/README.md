@@ -4,9 +4,10 @@
 
  1. [WaoN](https://github.com/kichiki/WaoN) for converting `.wav` to `.mid` (MIDI). (Available through HomeBrew.) Note that SoX does not currently support conversion to MIDI.
  1. [MIDICSV](http://www.fourmilab.ch/webtools/midicsv/) (includes CSVMIDI) for conversion between `.mid` MIDI files and text-editable `.csv` files. (Available through HomeBrew.)
- 1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate a MP3 from a MIDI. Installation instructions at http://apple.stackexchange.com/questions/107297/how-can-i-play-a-midi-file-from-terminal:
+ 1. [Fluidsynth](https://sourceforge.net/apps/trac/fluidsynth/): generate raw soundfile from a MIDI. Installation instructions at http://apple.stackexchange.com/questions/107297/how-can-i-play-a-midi-file-from-terminal:
      1. Download [`GeneralUser` SoundFont](http://www.schristiancollins.com/generaluser.php).
      1. Rename file `GeneralUser GS FluidSynth v1.44.sf2` to `GeneralUser_GS_FluidSynth_v1.44.sf2` and move it to location of `fluidsynth` install (which is a symlink, so follow that link to the directory's true location).
+ 1. [SoX](): convert raw soundfile to `.wav` etc.
 
 ### Background on MIDI
 
@@ -49,5 +50,10 @@
         fluidsynth -i <soundfont> <MIDI file>
 
 What I have heard so far is poor, but actually better than hand-transcribed material I paid for. Possibly the transcriber was also using automated processes.
+
+ 1. To convert the MIDI file to `.wav` etc.:
+
+        fluidsynth -i <soundfont> <MIDI file> -F <raw_file.raw>
+        sox -t raw -r 44100 -e signed -b 16 -c 1 <raw_file.raw> <sound_file.wav>
 
 [end]
