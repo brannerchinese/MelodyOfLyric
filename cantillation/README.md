@@ -19,7 +19,9 @@
 
         waon -i recording.wav -o output.mid
 
-   Note that there are many options to 
+   Note that there are many options for WaoN. I have used `-n` to select note-length and `-t` and `-b` to restrict the transcribed range to what appears to be the actual range used by the singer in this recording:
+
+        waon -n 8192 -t 67 -b 52 -i ../recordings/白居易、琵琶行並序_lines_01-08.wav -o ../midi/白居易、琵琶行並序_lines_01-08_n_8196_t_67_b_52.mid
 
  1. Convert `.mid` to editable `.csv`:
 
