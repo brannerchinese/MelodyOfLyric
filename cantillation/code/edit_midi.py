@@ -13,15 +13,13 @@ import heapq as H
 import pprint
 
 def main(filename='output.csv'):
-    with open(os.path.join('../midi', filename), 'r') as f:
+    with open(os.path.join('..', 'midi', filename), 'r') as f:
         content = f.read()
-#    print(content) # debug
     # Extract only lines containing "Note_" and store in "received_events".
     received_events = [tuple(item.split(', '))
             for item in content.split('\n')
             if 'Note_' in item]
     received_events = [tuple(item) for item in received_events]
-#    print(received_events) # debug
     # Redefine "received_events" as list of lists of tuples w/ same element 0.
     same_time_events = []
     for event in received_events:
@@ -29,32 +27,27 @@ def main(filename='output.csv'):
             same_time_events[-1].extend([event])
         else:
             same_time_events.append([event])
-#    pprint.pprint(same_time_events)
-    # Create empty list of "final_melody", variable "current" (current main
-    # note).
+    #
+    # Main loop.
     current_events = []
     final_melody = []
     current_note = None
     note_lookup = {}
     # Step through times
     for events in same_time_events:
-#        print(events) # debug
         for event in events:
             # If an off-item, remove from "current_events".
             if event[2] == 'Note_off_c':
                 current_events.remove(note_lookup.pop(event[4]))
-#                print('removed {}'.format(event[3])) # debug
             # If an on-item, add to "current_events".
             # Use "elif" rather than "else" because there may be other things.
             elif event[2] == 'Note_on_c':
                 H.heappush(current_events, event)
                 note_lookup[event[4]] = event
-#                print('added {}'.format(event[3])) # debug
         # If highest-velocity item in "events" is not "current":
         # What if two simultaneous events are equally loud?
         if current_events:
             largest = H.nlargest(1, current_events, key=lambda i: i[1])[0]
-#            print('largest:', largest) # debug
             if largest != current_note:
                 # Create "off" event for "current_note"; add to final_melody.
                 # But at index = 0, there is no "current_note" yet.
@@ -68,8 +61,8 @@ def main(filename='output.csv'):
                 # Add "on" event for new "current_note".
                 final_melody.append(largest)
     # Finally, last "off" event must occur at actual time in original.
-    final_time = events[-1][0]
-    off_event = (final_time, 'Note_off_c', '0', current_note[4], '64')
+    final_time = events[-1][1]
+    off_event = ('1', final_time, 'Note_off_c', '0', current_note[4], '64')
     final_melody.append(off_event)
     # Create string for saving to file.
     head = ('''0, 0, Header, 0, 1, 10\n'''
