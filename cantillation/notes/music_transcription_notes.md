@@ -76,4 +76,14 @@ Music transcription notes
    1. [personal discussion](http://www.tug.org/tugboat/tb29-3/tb93mccool.pdf)
    1. [MusiXTeX vs. LilyPond](http://tex.stackexchange.com/questions/136571/musixtex-vs-lilypond/136601#136601)
 
+ 1. Keyboard to MIDI
+ 
+   1. [Virtual MIDI Piano Keyboard](http://vmpk.sourceforge.net/).
+   1. [MidiPiano](http://download.cnet.com/MidiPiano/3000-2133_4-10515473.html)
+
+ 1. Python MIDI support
+ 
+   1. [midi](https://pypi.python.org/pypi/midi/)
+   1. [midiparser](https://pypi.python.org/pypi/midiparser/)
+   1. [simplecoremidi](https://pypi.python.org/pypi/simplecoremidi/0.3)
 [end]
