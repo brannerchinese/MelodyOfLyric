@@ -37,11 +37,13 @@ def test_step_to_midi_02():
 
 def test_step_to_midi_03():
     """Test handling of negative results."""
+    # One octave below range.
     step = 'C'
     alter = -1
     octave = -2
     with pytest.raises(Exception):
         U.step_to_midi(step, octave, alter)
+    # Three octaves below range.
     alter = 1
     octave = -4
     with pytest.raises(Exception):
@@ -49,15 +51,16 @@ def test_step_to_midi_03():
 
 def test_step_to_midi_04():
     """Test handling of results above range."""
+    # This should produce 131, above range.
     step = 'C'
     alter = -1
     octave = 10
     with pytest.raises(Exception):
         U.step_to_midi(step, octave, alter)
+    # This should produce 128, 1 above range.
     step = 'G'
     alter = 1
     octave = 9
-    # This should produce 128, above range.
     with pytest.raises(Exception):
         U.step_to_midi(step, octave, alter)
 

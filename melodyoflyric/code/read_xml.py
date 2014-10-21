@@ -13,9 +13,9 @@ import lxml.etree
 def main():
     pass
 
-def open_and_parse(filename='sheu_ityng_pyiparshyng_20141009.xml'):
+def get_notes(filename=os.path.join(
+        '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
     """Return list of 'note' elements from MusicXML file."""
-    filename = os.path.join('..', 'data', filename)
     with open(filename, 'rb') as f:
         content = f.read()
     parser = lxml.etree.HTMLParser(recover=True)
@@ -25,25 +25,24 @@ def open_and_parse(filename='sheu_ityng_pyiparshyng_20141009.xml'):
     except lxml.etree.XMLSyntaxError:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         traceback.print_exception(exc_type, exc_value, exc_traceback)
-#    print(lxml.etree.tostring(root, pretty_print=True))
     notes = root.xpath('//note')
     return notes
 
-# The following is marginally slower than the previous example.
-def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
-    """Return list of 'note' elements from MusicXML file."""
-    filename = os.path.join('..', 'data', filename)
-    with open(filename, 'r') as f:
-        content = f.read()
-    parser = lxml.etree.HTMLParser(recover=True)
-    root = None
-    try:
-        root = lxml.etree.parse(io.BytesIO(bytes(content, 'utf-8')), parser)
-    except lxml.etree.XMLSyntaxError:
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        traceback.print_exception(exc_type, exc_value, exc_traceback)
-    notes = root.xpath('//note')
-    return notes
+## The following is marginally slower than the previous example.
+#def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
+#    """Return list of 'note' elements from MusicXML file."""
+#    filename = os.path.join('..', 'data', filename)
+#    with open(filename, 'r') as f:
+#        content = f.read()
+#    parser = lxml.etree.HTMLParser(recover=True)
+#    root = None
+#    try:
+#        root = lxml.etree.parse(io.BytesIO(bytes(content, 'utf-8')), parser)
+#    except lxml.etree.XMLSyntaxError:
+#        exc_type, exc_value, exc_traceback = sys.exc_info()
+#        traceback.print_exception(exc_type, exc_value, exc_traceback)
+#    notes = root.xpath('//note')
+#    return notes
 
 def display_notes(notes):
     """Print all subitems of all notes."""
