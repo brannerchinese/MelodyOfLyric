@@ -2,3 +2,8 @@
 *.mp3
 *.mcsz
 *.mcsx
+*dpb_transcriptions
+*data
+*texts_of_recordings
+*paid_transcriptions
+*reference
