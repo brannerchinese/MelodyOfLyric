@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # read_xml.py
 # David Prager Branner
-# 20141018
+# 20141020
 
 """Open and analyze a MusicXML file."""
 
@@ -29,6 +29,7 @@ def open_and_parse(filename='sheu_ityng_pyiparshyng_20141009.xml'):
     notes = root.xpath('//note')
     return notes
 
+# The following is marginally slower than the previous example.
 def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
     """Return list of 'note' elements from MusicXML file."""
     filename = os.path.join('..', 'data', filename)
@@ -57,7 +58,7 @@ def display_notes(notes):
                 for subsubitem in subitem:
                     print('      subsubitem: {}'.format(subsubitem))
 
-def display_notes1(notes):
+def display_children(notes):
     for note in notes:
         print('\nNew note:')
         for child in note.getchildren():
