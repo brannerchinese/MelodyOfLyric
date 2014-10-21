@@ -65,3 +65,27 @@ def test_get_note_attrs_02():
         assert R.get_note_attrs(notes[9]) == {
                 'duration': '2', 'rest': True}
 
+def test_get_note_attrs_03():
+    notes = R.get_notes(os.path.join(
+            '..', 'test', 'data', 'test_cross_barline_8-8.xml'))
+    for i, note in enumerate(notes):
+        assert R.get_note_attrs(notes[0]) == {
+                'duration': '720', 'rest': True}
+        assert R.get_note_attrs(notes[1]) == {
+                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'}, 
+                'duration': '480'}
+        assert R.get_note_attrs(notes[2]) == {
+                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'}, 
+                'duration': '480'}
+        assert R.get_note_attrs(notes[3]) == {
+                'pitch_data': {'step': 'C', 'octave': '5'}, 
+                'duration': '240', 'tied': True}
+        assert R.get_note_attrs(notes[4]) == {
+                'pitch_data': {'step': 'C', 'octave': '5'}, 
+                'duration': '240', 'tied': True}
+        assert R.get_note_attrs(notes[5]) == {
+                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'}, 
+                'duration': '480'}
+        assert R.get_note_attrs(notes[6]) == {
+                'duration': '0', 'rest': True}
+
