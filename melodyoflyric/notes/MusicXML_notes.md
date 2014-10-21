@@ -10,6 +10,6 @@
 
  1. `midi_pitch = (octave * 12) + (step value + alter) + 12`. The lowest legal value is 0. note that MIDI identifies Middle C as note #60, octave 5; Music XML identifies Middle C as not #48, octave 4. Hence we add 12 in calculating `midi_pitch`. (See http://www.electronics.dit.ie/staff/tscarff/Music_technology/midi/midi_note_numbers_for_octaves.htm.) Note that MIDI's values assume octave 0 is equivalent to octave 1 in the MusicXML specification.
 
- 1. Problem: **duration** seems to depend on **beat-type**, a child-element of **measure**. How do we ensure that everything is uniform?
+ 1. Problem: **duration** seems to depend on **divisions**, a child-element of **measure**. How do we ensure that everything is uniform? But based on file 'sheu_ityng_pyiparshyng_20141009.xml' it appears that everything in a single document is regularized, so there is no problem about this.
 
 [end]
