@@ -57,6 +57,25 @@ def display_notes(notes):
                 for subsubitem in subitem:
                     print('      subsubitem: {}'.format(subsubitem))
 
+def get_note_attrs(note):
+    note_attrs = {}
+    for child in note.getchildren():
+        # "if child is None" is required syntax; "if not child" is deprecated.
+        if child is None:
+            continue
+        if child.tag == 'pitch':
+            note_attrs['pitch_data'] = {i.tag: i.text for i in child}
+        elif child.tag == 'rest':
+            note_attrs['rest'] = True
+        elif child.tag == 'duration':
+            note_attrs['duration'] = child.text
+        elif child.tag == 'notations':
+            note_attrs['tied'] = any([True for i in child if i.tag == 'tied'])
+        elif child.tag == 'lyric':
+            lyric_number = child.items()[0][1]
+            note_attrs['lyric_' + lyric_number] = {i.tag: i.text for i in child}
+    return note_attrs
+
 def display_children(notes):
     for note in notes:
         print('\nNew note:')
