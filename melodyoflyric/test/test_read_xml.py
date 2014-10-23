@@ -133,8 +133,8 @@ def test_syllable_list_01():
                 'duration': 2}]),
             ('two', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
                 'duration': 2}]),
-            ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied':
-                True, 'duration': 2}]),
+            ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 
+                'duration': 2}]),
             ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
                 'C'}, 'duration': 2}]),
             (None, [{'duration': 5}])]
@@ -148,8 +148,8 @@ def test_syllable_list_02():
                 'C'}, 'duration': 2}]),
             ('second', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
                 'C'}, 'duration': 2}]),
-            ('third', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied':
-                True, 'duration': 2}]),
+            ('third', [{'pitch_data': {'octave': '5', 'step': 'C'}, 
+                'duration': 2}]),
             ('fourth', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
                 'C'}, 'duration': 2}]),
             (None, [{'duration': 8}])]
@@ -165,7 +165,7 @@ def test_syllable_list_03():
                  [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
                      'duration': 1},
                   {'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1}]),
-             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 
+             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'},
                  'duration': 2}]),
              ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
                  'duration': 2}]),
@@ -184,7 +184,7 @@ def test_syllable_list_04():
                   'duration': 1}]),
              ('three',
               [{'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1},
-               {'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 
+               {'pitch_data': {'octave': '5', 'step': 'C'},
                    'duration': 2}]),
              ('four',
               [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
