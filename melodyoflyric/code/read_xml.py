@@ -78,34 +78,40 @@ def get_note_attrs(note):
 
 def check_consistency(xml_notes):
     """Not yet written."""
+    fail = False
     for xml_note in xml_notes:
         if not ('pitch' or 'rest') in xml_note:
             print('Neither pitch nor rest found in note {}.'.format(xml_note))
+            fail = True
         elif ('pitch' and 'rest') in xml_note:
             print('Both pitch nor rest found in note {}.'.format(xml_note))
-        # no "tied" in isolation and lyric only at start of "tied" chain
+            fail = True
+        # Also, no "tied" in isolation and lyric only at start of "tied" chain.
+    if fail:
+        sys.exit('xml_notes not internally consistent.')
 
 def main():
     xml_notes = R.open_and_parse(
             os.path.join('..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml'))
     check_consistency(xml_notes)
     syllables = []
-    # delete rests at start or finish, retain others as None syllables.
+    # Delete rests at start or finish, retain others as None syllables.
     for i, xml_note in enumerate(xml_notes):
         note_attrs = R.get_note_attrs(xml_note)
         # syllables: [(syllable, [setting_notes])]
         # deal with lyric_1 by default
-        if 'lyric_1' in note_attrs:
-            syllable = note_attrs.pop('lyric_1') # qqq what if not there?
+        syllable = note_attrs.pop('lyric_1', None)
+        if syllable:
             syllables.append((syllable, note_attrs))
         else:
             print('error: no lyric_1 in {}'.format(note_attrs))
-        if 'tied' in note_attrs and note_attrs['tied']: 
-            # check if last note same as current note; if so, supplement it.
+        if note_attrs.get('tied'): 
+            # Then check if last note's pitch same current note; 
+            # if so, supplement it.
             # if not, do nothing special
+            pass
         else:
             continuing = False
-    
 
 
 def display_children(notes):
@@ -153,219 +159,3 @@ def display_children(notes):
 # stem - direction of note's stem
 # beam [('number', '1')]
 # rest - no other information
-
-
-# Last full line:
-
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: C	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 8	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: stem	child.text: down	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: begin	
-# 	grandchild.tag: text	grandchild.text: kang	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 江	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: D	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 8	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: down	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: end	
-# 	grandchild.tag: text	grandchild.text: chiu	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 州	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: A	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 8	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: begin	
-# 	grandchild.tag: text	grandchild.text: su	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 司	
-# child.tag: lyric	child.items(): [('number', '3')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: ritardando	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: C	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: begin	child.items(): [('number', '1')]	
-# child.tag: notations	
-# 	grandchild.tag: slur	grandchild.text: None	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: end	
-# 	grandchild.tag: text	grandchild.text: máⁿ	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 馬	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: G	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: end	child.items(): [('number', '1')]	
-# child.tag: notations	
-# 	grandchild.tag: slur	grandchild.text: None	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: A	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 8	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: begin	
-# 	grandchild.tag: text	grandchild.text: chheng	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 青	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: D	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 8	
-# child.tag: tie	child.items(): [('type', 'start')]	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: down	
-# child.tag: notations	
-# 	grandchild.tag: tied	grandchild.text: None	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: end	
-# 	grandchild.tag: text	grandchild.text: sam	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 衫	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: D	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 4	
-# child.tag: tie	child.items(): [('type', 'stop')]	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: begin	child.items(): [('number', '1')]	
-# child.tag: notations	
-# 	grandchild.tag: tied	grandchild.text: None	
-# 	grandchild.tag: slur	grandchild.text: None	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: C	
-# 	grandchild.tag: octave	grandchild.text: 4	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: continue	child.items(): [('number', '1')]	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: A	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: continue	child.items(): [('number', '1')]	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: F	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: stem	child.text: up	
-# child.tag: beam	child.text: end	child.items(): [('number', '1')]	
-# child.tag: notations	
-# 	grandchild.tag: slur	grandchild.text: None	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: A	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: notations	
-# 	grandchild.tag: slur	grandchild.text: None	
-# child.tag: lyric	child.items(): [('number', '1')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: sip	
-# child.tag: lyric	child.items(): [('number', '2')]	
-# 	grandchild.tag: syllabic	grandchild.text: single	
-# 	grandchild.tag: text	grandchild.text: 濕	
-# 
-# New note:
-# child.tag: pitch	
-# 	grandchild.tag: step	grandchild.text: G	
-# 	grandchild.tag: alter	grandchild.text: 1	
-# 	grandchild.tag: octave	grandchild.text: 3	
-# child.tag: duration	child.text: 8	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: quarter	
-# child.tag: accidental	child.text: sharp	
-# child.tag: stem	child.text: up	
-# child.tag: notations	
-# 	grandchild.tag: slur	grandchild.text: None	
-# 
-# New note:
-# child.tag: rest	
-# child.tag: duration	child.text: 4	
-# child.tag: voice	child.text: 1	
-# child.tag: type	child.text: eighth	
-# 
-# New note:
-# child.tag: rest	
-# child.tag: duration	child.text: 16	
-# child.tag: voice	child.text: 1
