@@ -159,13 +159,36 @@ def test_syllable_list_02():
 def test_syllable_list_03():
     expected_result = [
             (None, [{'duration': 3}]),
-             ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}]),
-             ('two', 
-                 [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 1},
+             ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
+                 'duration': 2}]),
+             ('two',
+                 [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
+                     'duration': 1},
                   {'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1}]),
-             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 'duration': 2}]),
-             ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}]),
+             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 
+                 'duration': 2}]),
+             ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
+                 'duration': 2}]),
              (None, [{'duration': 5}])]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_melisma.xml')) == expected_result
 
+def test_syllable_list_04():
+    expected_result = [
+            (None, [{'duration': 3}]),
+             ('one',
+              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
+                  'duration': 2}]),
+             ('two',
+              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
+                  'duration': 1}]),
+             ('three',
+              [{'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1},
+               {'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 
+                   'duration': 2}]),
+             ('four',
+              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 
+                  'duration': 2}]),
+             (None, [{'duration': 5}])]
+    assert R.main(os.path.join('..', 'test', 'data',
+            'test_cross_barline_with_tied_melisma.xml')) == expected_result
