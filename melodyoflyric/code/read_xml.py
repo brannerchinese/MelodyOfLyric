@@ -10,8 +10,12 @@ import os
 import io
 import lxml.etree
 
-def main():
-    pass
+def main(filename=os.path.join(
+        '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
+    xml_notes = get_notes(filename)
+    note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
+    print(check_consistency(note_attr_list))
+    return 
 
 def get_notes(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
@@ -25,8 +29,8 @@ def get_notes(filename=os.path.join(
     except lxml.etree.XMLSyntaxError:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         traceback.print_exception(exc_type, exc_value, exc_traceback)
-    notes = root.xpath('//note')
-    return notes
+    xml_notes = root.xpath('//note')
+    return xml_notes
 
 ## The following is marginally slower than the previous example.
 #def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
@@ -44,7 +48,7 @@ def get_notes(filename=os.path.join(
 #    notes = root.xpath('//note')
 #    return notes
 
-def display_notes(notes):
+def display_notes(xml_notes):
     """Print all subitems of all notes."""
     for note in notes:
 #        print(list(note))
@@ -57,9 +61,9 @@ def display_notes(notes):
                 for subsubitem in subitem:
                     print('      subsubitem: {}'.format(subsubitem))
 
-def get_note_attrs(note):
+def get_note_attrs(xml_note):
     note_attrs = {}
-    for child in note.getchildren():
+    for child in xml_note.getchildren():
         # "if child is None" is required syntax; "if not child" is deprecated.
         if child is None:
             continue
@@ -76,45 +80,47 @@ def get_note_attrs(note):
             note_attrs['lyric_' + lyric_number] = {i.tag: i.text for i in child}
     return note_attrs
 
-def check_consistency(xml_notes):
+def check_consistency(note_attr_list):
     """Not yet written."""
-    fail = False
-    for xml_note in xml_notes:
-        if not ('pitch' or 'rest') in xml_note:
-            print('Neither pitch nor rest found in note {}.'.format(xml_note))
-            fail = True
-        elif ('pitch' and 'rest') in xml_note:
-            print('Both pitch nor rest found in note {}.'.format(xml_note))
-            fail = True
+    consistency = True
+    for note_attr in note_attr_list:
+#        note_attr = note_attr.getchildren()
+        if 'pitch_data' not in note_attr and 'rest' not in note_attr:
+            print('Neither pitch_data nor rest found in note {}.'.format(note_attr))
+            consistency = False
+        elif 'pitch_data' in note_attr and 'rest' in note_attr:
+            print('Both pitch_data nor rest found in note {}.'.format(note_attr))
+            consistency = False
         # Also, no "tied" in isolation and lyric only at start of "tied" chain.
-    if fail:
-        sys.exit('xml_notes not internally consistent.')
+        # Does every note have duration?
+    return consistency
 
-def main():
-    xml_notes = R.open_and_parse(
-            os.path.join('..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml'))
-    check_consistency(xml_notes)
+def get_syllables(xml_notes):
+    if not check_consistency(xml_notes):
+        print('Exiting.')
+        return
     syllables = []
-    last_note = None
+    last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
     for i, xml_note in enumerate(xml_notes):
         note_attrs = R.get_note_attrs(xml_note)
-        # syllables: [(syllable, [setting_notes])]
-        # deal with lyric_1 by default
-        syllable = note_attrs.pop('lyric_1', None)
-        if syllable:
-            syllables.append((syllable, note_attrs))
-        else:
-            print('error: no lyric_1 in {}'.format(note_attrs))
-        if note_attrs.get('tied'): 
-            # Then check if last note's pitch same current note; 
-            if note_attrs.get('pitch_data').get('step') == last_note: # what abt rest? elif?
-                # if so, supplement its length.
-                pass
-            else:
-                # if not, do nothing special
-                pass
+        # content of syllables: [(syllable, [setting_notes])]
+        try:
+            syllables.append((note_attrs.pop('rest'), note_attrs))
+        # If there is no rest, then you have a syllable.
+        except KeyError:
+            # First deal with note tied to previous note.
+            if note_attrs.get('tied'): 
+                # Check if last note's pitch same as pitch of current note; 
+                if note_attrs.get('pitch_data').get('step') == last_note:
+                    # Supplement last note's length and discard current.
+                    syllables[-1]['duration'] += note_attrs['duration']
+                else:
+                    # Add current syllable; deal with lyric_1 by default
+                    syllables.append(
+                            (note_attrs.pop('lyric_1', None), note_attrs))
         last_note = note_attrs['pitch_data']['step']
+    return syllables
 
 
 def display_children(notes):
