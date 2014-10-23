@@ -16,7 +16,7 @@ def main(filename=os.path.join(
     note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
     if check_consistency(note_attr_list):
         syllables = get_syllables(note_attr_list)
-#    return syllables
+    return syllables
 
 def get_notes(filename):
     """Return list of 'note' elements from MusicXML file."""
@@ -84,7 +84,6 @@ def check_consistency(note_attr_list):
     """Not yet complete."""
     consistency = True
     for note_attr in note_attr_list:
-#        note_attr = note_attr.getchildren()
         if 'pitch_data' not in note_attr and 'rest' not in note_attr:
             print('Neither pitch_data nor rest found in {}.'.format(note_attr))
             consistency = False
@@ -101,9 +100,10 @@ def get_syllables(note_attr_list):
     last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
     for i, note_attrs in enumerate(note_attr_list):
+        print(i, note_attrs, end='\n\n')
         # Content of syllables: [(syllable, [setting_notes])]
         try:
-            syllables.append((note_attrs.pop('rest'), note_attrs))
+            del note_attrs['rest']
         # If there is no rest, then you have a syllable.
         except KeyError:
             print('\nfound syllable:', note_attrs)
@@ -111,22 +111,31 @@ def get_syllables(note_attr_list):
             if note_attrs.get('tied'): 
                 # Check if last note's pitch same as pitch of current note; 
                 if note_attrs.get('pitch_data').get('step') == last_note:
-                    print("""    note_attrs.get('pitch_data').get('step') == last_note: {} == {}""".format(note_attrs.get('pitch_data').get('step'), last_note))
+                    print("""    note_attrs.get('pitch_data').get('step') == """
+                          """last_note: {} == {}""".format(
+                          note_attrs.get('pitch_data').get('step'), last_note)) 
                     # Supplement last note's length and discard current.
-                    print('    duration before:', syllables[-1][1]['duration'], end=' ')
-                    print('add duration:', note_attrs['duration'], end=' ')
+                    print("""    duration before:""", 
+                            syllables[-1][1]['duration'], end=' ') # debug
+                    print("""add duration:""", 
+                            note_attrs['duration'], end=' ') # debug
                     syllables[-1][1]['duration'] += note_attrs['duration']
-                    print('duration before:', syllables[-1][1]['duration'])
+                    print("""duration before:""", 
+                            syllables[-1][1]['duration']) # debug
+                    continue
             else:
                 print('   not tied:', note_attrs)
-                # Add current syllable; deal with lyric_1 by default
-                syllables.append(
-                        (note_attrs.pop('lyric_1', None), note_attrs))
+            # Pop current syllable; deal with lyric_1 by default
+            value = note_attrs.pop('lyric_1')['text']
             last_note = note_attrs.get('pitch_data').get('step')
         else:
+            value = 'rest'
             if last_note == 'rest':
                 syllables[-1][1]['duration'] += note_attrs['duration']
             last_note = 'rest'
+        finally:
+            print(i, value)
+            syllables.append((value, note_attrs))
     return syllables
 
 

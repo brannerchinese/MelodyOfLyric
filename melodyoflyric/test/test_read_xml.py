@@ -45,19 +45,23 @@ def test_get_note_attrs_02():
                 'duration': 1, 'rest': True}
         assert R.get_note_attrs(xml_notes[2]) == {
                 'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 2}
+                'duration': 2,
+                'lyric_1': {'syllabic': 'single', 'text': 'one'}}
         assert R.get_note_attrs(xml_notes[3]) == {
                 'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 2}
+                'duration': 2,
+                'lyric_1': {'syllabic': 'single', 'text': 'two'}}
         assert R.get_note_attrs(xml_notes[4]) == {
                 'pitch_data': {'step': 'C', 'octave': '5'},
-                'duration': 1, 'tied': True}
+                'duration': 1, 'tied': True,
+                'lyric_1': {'syllabic': 'single', 'text': 'three'}}
         assert R.get_note_attrs(xml_notes[5]) == {
                 'pitch_data': {'step': 'C', 'octave': '5'},
                 'duration': 1, 'tied': True}
         assert R.get_note_attrs(xml_notes[6]) == {
                 'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 2}
+                'duration': 2,
+                'lyric_1': {'syllabic': 'single', 'text': 'four'}}
         assert R.get_note_attrs(xml_notes[7]) == {
                 'duration': 1, 'rest': True}
         assert R.get_note_attrs(xml_notes[8]) == {
