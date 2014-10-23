@@ -81,7 +81,7 @@ def get_note_attrs(xml_note):
     return note_attrs
 
 def check_consistency(note_attr_list):
-    """Not yet written."""
+    """Not yet complete."""
     consistency = True
     for note_attr in note_attr_list:
 #        note_attr = note_attr.getchildren()
@@ -96,6 +96,7 @@ def check_consistency(note_attr_list):
     return consistency
 
 def get_syllables(note_attr_list):
+    """From list of note-by-note dictionaries produce list of syllables."""
     syllables = []
     last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
