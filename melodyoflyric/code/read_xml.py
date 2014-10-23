@@ -100,44 +100,77 @@ def get_syllables(note_attr_list):
     last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
     for i, note_attrs in enumerate(note_attr_list):
-        print(i, note_attrs, end='\n\n')
+        print('\n{}: {}'.format(i, note_attrs))
         # Content of syllables: [(syllable, [setting_notes])]
         try:
+            # We are in rest, not note.
             del note_attrs['rest']
-        # If there is no rest, then you have a syllable.
         except KeyError:
-            print('\nfound syllable:', note_attrs)
+        # If there is no rest, then you have note and syllable.
+            print('    Found syllable:', note_attrs)
             # First deal with note tied to previous note.
             if note_attrs.get('tied'): 
-                # Check if last note's pitch same as pitch of current note; 
+                # Is last note's pitch same as pitch of current note?
                 if note_attrs.get('pitch_data').get('step') == last_note:
                     print("""    note_attrs.get('pitch_data').get('step') == """
-                          """last_note: {} == {}""".format(
+                          """    last_note: {} == {}""".format(
                           note_attrs.get('pitch_data').get('step'), last_note)) 
                     # Supplement last note's length and discard current.
-                    print("""    duration before:""", 
-                            syllables[-1][1]['duration'], end=' ') # debug
-                    print("""add duration:""", 
-                            note_attrs['duration'], end=' ') # debug
-                    syllables[-1][1]['duration'] += note_attrs['duration']
-                    print("""duration before:""", 
+                    print("""    syllables[-1][1]['duration'] += """
+                          """note_attrs['duration']: {} += {}|""".
+                          format(syllables[-1][1]['duration'],
+                          note_attrs['duration']))
+                    syllables = increment_duration(syllables, note_attrs)
+                    print("""    new duration:""", 
                             syllables[-1][1]['duration']) # debug
-                    continue
+                    print('    Do not append this SYLLABLE.')
+                    print('    NON-FIRST TIED NOTE currently syllables:', 
+                            syllables, end='\n\n')
+                else:
+                    # Tied but not to previous note; must be to next note.
+                    # Should therefore appear as new syllable.
+                    syllables = append_syllable(syllables, 
+                            note_attrs.pop('lyric_1')['text'], note_attrs)
+                    last_note = note_attrs.get('pitch_data').get('step')
             else:
-                print('   not tied:', note_attrs)
-            # Pop current syllable; deal with lyric_1 by default
-            value = note_attrs.pop('lyric_1')['text']
-            last_note = note_attrs.get('pitch_data').get('step')
+                # Not tied. 
+                print('    Note is not tied.')
+                # Pop current syllable; deal with lyric_1 by default
+                syllables = append_syllable(syllables, 
+                        note_attrs.pop('lyric_1')['text'], note_attrs)
+                # Next time last_note is examined it should never match.
+                last_note = 'impossible starting value'
+                print('    Popped', syllables[-1][0])
+                print('    Current last note:', last_note)
         else:
-            value = 'rest'
-            if last_note == 'rest':
-                syllables[-1][1]['duration'] += note_attrs['duration']
-            last_note = 'rest'
+            # Perform these if rest.
+            value = None
+            # If previous note was rest, 
+            # increase its value and do not append this one.
+            if last_note == None:
+                print("""last_note == None; syllables[-1][1]['duration']: """
+                      """{}; note_attrs['duration']: {}""".
+                      format(syllables[-1][1]['duration'], 
+                            note_attrs['duration']))
+                syllables = increment_duration(syllables, note_attrs)
+                print("now syllables[-1][1]['duration']: {}".
+                        format(syllables[-1][1]['duration']))
+                print('    Do not append this REST.')
+            else:
+                syllables = append_syllable(syllables, value, note_attrs)
+                print('    Appended rest:', value)
+                last_note = value
         finally:
-            print(i, value)
-            syllables.append((value, note_attrs))
+            print('    FINALLY currently syllables:', syllables, end='\n\n')
     return syllables
 
+def append_syllable(syllables, value, note_attrs):
+    syllables.append((value, note_attrs))
+    return syllables
+
+def increment_duration(syllables, note_attrs):
+    syllables[-1][1]['duration'] += note_attrs['duration']
+    return syllables
 
 def display_children(notes):
     for note in notes:
