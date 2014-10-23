@@ -95,6 +95,7 @@ def main():
             os.path.join('..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml'))
     check_consistency(xml_notes)
     syllables = []
+    last_note = None
     # Delete rests at start or finish, retain others as None syllables.
     for i, xml_note in enumerate(xml_notes):
         note_attrs = R.get_note_attrs(xml_note)
@@ -107,11 +108,13 @@ def main():
             print('error: no lyric_1 in {}'.format(note_attrs))
         if note_attrs.get('tied'): 
             # Then check if last note's pitch same current note; 
-            # if so, supplement it.
-            # if not, do nothing special
-            pass
-        else:
-            continuing = False
+            if note_attrs.get('pitch_data').get('step') == last_note: # what abt rest? elif?
+                # if so, supplement its length.
+                pass
+            else:
+                # if not, do nothing special
+                pass
+        last_note = note_attrs['pitch_data']['step']
 
 
 def display_children(notes):
