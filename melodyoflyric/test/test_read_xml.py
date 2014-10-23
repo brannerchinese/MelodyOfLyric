@@ -128,22 +128,44 @@ def test_check_consistency_05():
 
 def test_syllable_list_01():
     expected_result = [
-            (None, {'duration': 3}),
-            ('one', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            ('two', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            ('three', {'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 'duration': 2}),
-            ('four', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            (None, {'duration': 5})]
+            (None, [{'duration': 3}]),
+            ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
+                'duration': 2}]),
+            ('two', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
+                'duration': 2}]),
+            ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied':
+                True, 'duration': 2}]),
+            ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
+                'C'}, 'duration': 2}]),
+            (None, [{'duration': 5}])]
     assert R.main(os.path.join('..', 'test', 'data', 
             'test_cross_barline.xml')) == expected_result
 
 def test_syllable_list_02():
     expected_result = [
-            (None, {'duration': 3}),
-            ('first', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            ('second', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            ('third', {'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 'duration': 2}),
-            ('fourth', {'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}),
-            (None, {'duration': 8})]
+            (None, [{'duration': 3}]),
+            ('first', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
+                'C'}, 'duration': 2}]),
+            ('second', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
+                'C'}, 'duration': 2}]),
+            ('third', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied':
+                True, 'duration': 2}]),
+            ('fourth', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
+                'C'}, 'duration': 2}]),
+            (None, [{'duration': 8}])]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_8-8_and_lyrics.xml')) == expected_result
+
+def test_syllable_list_03():
+    expected_result = [
+            (None, [{'duration': 3}]),
+             ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}]),
+             ('two', 
+                 [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 1},
+                  {'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1}]),
+             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'}, 'tied': True, 'duration': 2}]),
+             ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'}, 'duration': 2}]),
+             (None, [{'duration': 5}])]
+    assert R.main(os.path.join('..', 'test', 'data',
+            'test_cross_barline_with_melisma.xml')) == expected_result
+
