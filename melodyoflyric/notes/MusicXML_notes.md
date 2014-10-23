@@ -12,4 +12,6 @@
 
  1. Problem: **duration** seems to depend on **divisions**, a child-element of **measure**. How do we ensure that everything is uniform? But based on file 'sheu_ityng_pyiparshyng_20141009.xml' it appears that everything in a single document is regularized, so there is no problem about this.
 
+ 1. **tied** notes are never single; both first and second always have `'tied': True`.
+
 [end]

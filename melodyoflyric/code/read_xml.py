@@ -76,6 +76,38 @@ def get_note_attrs(note):
             note_attrs['lyric_' + lyric_number] = {i.tag: i.text for i in child}
     return note_attrs
 
+def check_consistency(xml_notes):
+    """Not yet written."""
+    for xml_note in xml_notes:
+        if not ('pitch' or 'rest') in xml_note:
+            print('Neither pitch nor rest found in note {}.'.format(xml_note))
+        elif ('pitch' and 'rest') in xml_note:
+            print('Both pitch nor rest found in note {}.'.format(xml_note))
+        # no "tied" in isolation and lyric only at start of "tied" chain
+
+def main():
+    xml_notes = R.open_and_parse(
+            os.path.join('..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml'))
+    check_consistency(xml_notes)
+    syllables = []
+    # delete rests at start or finish, retain others as None syllables.
+    for i, xml_note in enumerate(xml_notes):
+        note_attrs = R.get_note_attrs(xml_note)
+        # syllables: [(syllable, [setting_notes])]
+        # deal with lyric_1 by default
+        if 'lyric_1' in note_attrs:
+            syllable = note_attrs.pop('lyric_1') # qqq what if not there?
+            syllables.append((syllable, note_attrs))
+        else:
+            print('error: no lyric_1 in {}'.format(note_attrs))
+        if 'tied' in note_attrs and note_attrs['tied']: 
+            # check if last note same as current note; if so, supplement it.
+            # if not, do nothing special
+        else:
+            continuing = False
+    
+
+
 def display_children(notes):
     for note in notes:
         print('\nNew note:')
