@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # read_xml.py
 # David Prager Branner
-# 20141020
+# 20141023
 
 """Open and analyze a MusicXML file."""
 
@@ -14,11 +14,11 @@ def main(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
     xml_notes = get_notes(filename)
     note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
-    print(check_consistency(note_attr_list))
-    return 
+    if check_consistency(note_attr_list):
+        syllables = get_syllables(note_attr_list)
+#    return syllables
 
-def get_notes(filename=os.path.join(
-        '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
+def get_notes(filename):
     """Return list of 'note' elements from MusicXML file."""
     with open(filename, 'rb') as f:
         content = f.read()
@@ -32,7 +32,8 @@ def get_notes(filename=os.path.join(
     xml_notes = root.xpath('//note')
     return xml_notes
 
-## The following is marginally slower than the previous example.
+## The following, with different handling of encoding, is marginally slower than 
+## get_notes().
 #def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
 #    """Return list of 'note' elements from MusicXML file."""
 #    filename = os.path.join('..', 'data', filename)
@@ -51,7 +52,6 @@ def get_notes(filename=os.path.join(
 def display_notes(xml_notes):
     """Print all subitems of all notes."""
     for note in notes:
-#        print(list(note))
         for item in note:
             if not item:
                 continue
@@ -72,7 +72,7 @@ def get_note_attrs(xml_note):
         elif child.tag == 'rest':
             note_attrs['rest'] = True
         elif child.tag == 'duration':
-            note_attrs['duration'] = child.text
+            note_attrs['duration'] = int(child.text)
         elif child.tag == 'notations':
             note_attrs['tied'] = any([True for i in child if i.tag == 'tied'])
         elif child.tag == 'lyric':
@@ -86,40 +86,46 @@ def check_consistency(note_attr_list):
     for note_attr in note_attr_list:
 #        note_attr = note_attr.getchildren()
         if 'pitch_data' not in note_attr and 'rest' not in note_attr:
-            print('Neither pitch_data nor rest found in note {}.'.format(note_attr))
+            print('Neither pitch_data nor rest found in {}.'.format(note_attr))
             consistency = False
         elif 'pitch_data' in note_attr and 'rest' in note_attr:
-            print('Both pitch_data nor rest found in note {}.'.format(note_attr))
+            print('Both pitch_data and rest found in {}.'.format(note_attr))
             consistency = False
         # Also, no "tied" in isolation and lyric only at start of "tied" chain.
         # Does every note have duration?
     return consistency
 
-def get_syllables(xml_notes):
-    if not check_consistency(xml_notes):
-        print('Exiting.')
-        return
+def get_syllables(note_attr_list):
     syllables = []
     last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
-    for i, xml_note in enumerate(xml_notes):
-        note_attrs = R.get_note_attrs(xml_note)
-        # content of syllables: [(syllable, [setting_notes])]
+    for i, note_attrs in enumerate(note_attr_list):
+        # Content of syllables: [(syllable, [setting_notes])]
         try:
             syllables.append((note_attrs.pop('rest'), note_attrs))
         # If there is no rest, then you have a syllable.
         except KeyError:
+            print('\nfound syllable:', note_attrs)
             # First deal with note tied to previous note.
             if note_attrs.get('tied'): 
                 # Check if last note's pitch same as pitch of current note; 
                 if note_attrs.get('pitch_data').get('step') == last_note:
+                    print("""    note_attrs.get('pitch_data').get('step') == last_note: {} == {}""".format(note_attrs.get('pitch_data').get('step'), last_note))
                     # Supplement last note's length and discard current.
-                    syllables[-1]['duration'] += note_attrs['duration']
-                else:
-                    # Add current syllable; deal with lyric_1 by default
-                    syllables.append(
-                            (note_attrs.pop('lyric_1', None), note_attrs))
-        last_note = note_attrs['pitch_data']['step']
+                    print('    duration before:', syllables[-1][1]['duration'], end=' ')
+                    print('add duration:', note_attrs['duration'], end=' ')
+                    syllables[-1][1]['duration'] += note_attrs['duration']
+                    print('duration before:', syllables[-1][1]['duration'])
+            else:
+                print('   not tied:', note_attrs)
+                # Add current syllable; deal with lyric_1 by default
+                syllables.append(
+                        (note_attrs.pop('lyric_1', None), note_attrs))
+            last_note = note_attrs.get('pitch_data').get('step')
+        else:
+            if last_note == 'rest':
+                syllables[-1][1]['duration'] += note_attrs['duration']
+            last_note = 'rest'
     return syllables
 
 
