@@ -32,23 +32,6 @@ def get_notes(filename):
     xml_notes = root.xpath('//note')
     return xml_notes
 
-## The following, with different handling of encoding, is marginally slower than 
-## get_notes().
-#def open_and_parse1(filename='sheu_ityng_pyiparshyng_20141009.xml'):
-#    """Return list of 'note' elements from MusicXML file."""
-#    filename = os.path.join('..', 'data', filename)
-#    with open(filename, 'r') as f:
-#        content = f.read()
-#    parser = lxml.etree.HTMLParser(recover=True)
-#    root = None
-#    try:
-#        root = lxml.etree.parse(io.BytesIO(bytes(content, 'utf-8')), parser)
-#    except lxml.etree.XMLSyntaxError:
-#        exc_type, exc_value, exc_traceback = sys.exc_info()
-#        traceback.print_exception(exc_type, exc_value, exc_traceback)
-#    notes = root.xpath('//note')
-#    return notes
-
 def display_notes(xml_notes):
     """Print all subitems of all notes."""
     for note in notes:
@@ -100,37 +83,22 @@ def get_syllables(note_attr_list):
     last_note = 'impossible starting value'
     # Delete rests at start or finish, retain others as None syllables.
     for i, note_attrs in enumerate(note_attr_list):
-#        print('\n{}: {}'.format(i, note_attrs))
         # Content of syllables: [(syllable, [setting_notes])]
         try:
             # We are in rest, not note.
             del note_attrs['rest']
         except KeyError:
         # If there is no rest, then you have note and syllable.
-#            print('    Found syllable:', note_attrs)
             # Deal with note tied to previous note. Either way, delete "tied".
             if note_attrs.get('tied'): 
                 del note_attrs['tied']
                 # Is last note's pitch same as pitch of current note?
                 if note_attrs.get('pitch_data').get('step') == last_note:
-#                    print("""    note_attrs.get('pitch_data').get('step') == """
-#                          """    last_note: {} == {}""".format(
-#                          note_attrs.get('pitch_data').get('step'), last_note)) 
                     # Supplement last note's length and discard current.
-#                    print("""    syllables[-1][1][-1]['duration'] += """
-#                          """note_attrs['duration']: {} += {}|""".
-#                          format(syllables[-1][1][-1]['duration'],
-#                          note_attrs['duration']))
                     syllables = increment_duration(syllables, note_attrs)
-#                    print("""    new duration:""", 
-#                            syllables[-1][1][-1]['duration']) # debug
-#                    print('    Do not append this SYLLABLE.')
-#                    print('    NON-FIRST TIED NOTE currently syllables:', 
-#                            syllables, end='\n\n')
                 else:
                     # Tied but not to previous note; must be to next note.
                     # Should therefore appear as new syllable.
-#                    del note_attrs['tied']
                     if 'lyric_1' not in note_attrs:
                         syllables[-1][1].append(note_attrs)
                     else:
@@ -141,39 +109,25 @@ def get_syllables(note_attr_list):
                 # Not tied. 
                 if 'tied' in note_attrs:
                     del note_attrs['tied']
-#                print('    Note is not tied.')
                 # Pop current syllable; deal with lyric_1 by default.
                 # But if no lyric is present, append note to previous syllable.
                 if 'lyric_1' not in note_attrs:
-#                    print("    syllables[-1]", syllables[-1])
                     syllables[-1][1].append(note_attrs)
                 else:
                     syllables = append_syllable(syllables, 
                             note_attrs.pop('lyric_1')['text'], note_attrs)
                 # Next time last_note is examined it should never match.
                 last_note = 'impossible starting value'
-#                print('    Popped', syllables[-1][0])
-#                print('    Current last note:', last_note)
         else:
             # Perform these if rest.
             value = None
             # If previous note was rest, 
             # increase its value and do not append this one.
             if last_note == None:
-#                print("""last_note == None; syllables[-1][1][-1]['duration']: """
-#                      """{}; note_attrs['duration']: {}""".
-#                      format(syllables[-1][1][-1]['duration'], 
-#                            note_attrs['duration']))
                 syllables = increment_duration(syllables, note_attrs)
-#                print("now syllables[-1][1][-1]['duration']: {}".
-#                        format(syllables[-1][1][-1]['duration']))
-#                print('    Do not append this REST.')
             else:
                 syllables = append_syllable(syllables, value, note_attrs)
-#                print('    Appended rest:', value)
                 last_note = value
-#        finally:
-#            print('    FINALLY currently syllables:', syllables, end='\n\n')
     return syllables
 
 def append_syllable(syllables, value, note_attrs):
@@ -188,8 +142,6 @@ def display_children(notes):
     for note in notes:
         print('\nNew note:')
         for child in note.getchildren():
-#            if child.tag == 'duration':
-#                return child
             print('child.tag: {}'.format(child.tag), end='\t')
             if child.text and child.text[0] != '\n':
                 print('child.text: {}'.format(child.text), end='\t')
@@ -203,29 +155,3 @@ def display_children(notes):
                             format(grandchild[0], grandchild[1]), 
                             end='\t')
             print()
-
-# Notes:
-#
-# pitch:
-#     [grandchild.tag: step	grandchild.text: D - child.e., well-tempered note
-#      grandchild.tag: alter	grandchild.text: 0: no accidental; 1: sharp; -1: flat — this information seems to be the same as the accidental
-#      grandchild.tag: octave	grandchild.text: 4] - which octave
-#
-# lyric 
-#    [('number', '1')] - used for rows of lyrics
-#    [('single', 'syllabic'), - single vs. begin/end/middle
-#     ('sip', 'text')] - actual transcription
-#
-# notations
-#     [grandchild.tag: tied	grandchild.text: None - important for extending note
-#      grandchild.tag: slur	grandchild.text: None] - not needed
-#
-# duration — number in 32nds — we can sum them in order to find the total duration of a syllable.
-# 
-# Don't need:
-# voice - in case we have multiple voices
-# type - type of graphic note - e.g., quarter — represents duration
-# accidental - this information is already presented in pitch.alter
-# stem - direction of note's stem
-# beam [('number', '1')]
-# rest - no other information
