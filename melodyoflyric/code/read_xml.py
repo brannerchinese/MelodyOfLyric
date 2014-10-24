@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # read_xml.py
 # David Prager Branner
-# 20141023
+# 20141024
 
 """Open and analyze a MusicXML file."""
 
@@ -9,6 +9,7 @@ import sys
 import os
 import io
 import lxml.etree
+import utils as U
 
 def main(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
@@ -45,13 +46,20 @@ def display_notes(xml_notes):
                     print('      subsubitem: {}'.format(subsubitem))
 
 def get_note_attrs(xml_note):
+    """For a given note return the elements we need."""
     note_attrs = {}
     for child in xml_note.getchildren():
         # "if child is None" is required syntax; "if not child" is deprecated.
         if child is None:
             continue
         if child.tag == 'pitch':
-            note_attrs['pitch_data'] = {i.tag: i.text for i in child}
+            pitch_data = {i.tag: i.text for i in child}
+            step, octave = pitch_data['step'], int(pitch_data['octave'])
+            if 'alter' in pitch_data:
+                alter = int(pitch_data['alter'])
+            else:
+                alter = 0
+            note_attrs['pitch_data'] = U.step_to_midi(step, octave, alter)
         elif child.tag == 'rest':
             note_attrs['rest'] = True
         elif child.tag == 'duration':
@@ -64,7 +72,7 @@ def get_note_attrs(xml_note):
     return note_attrs
 
 def check_consistency(note_attr_list):
-    """Not yet complete."""
+    """Check that certain known problems do not occur (Not yet complete.)"""
     consistency = True
     for note_attr in note_attr_list:
         if 'pitch_data' not in note_attr and 'rest' not in note_attr:
@@ -93,7 +101,7 @@ def get_syllables(note_attr_list):
             if note_attrs.get('tied'): 
                 del note_attrs['tied']
                 # Is last note's pitch same as pitch of current note?
-                if note_attrs.get('pitch_data').get('step') == last_note:
+                if note_attrs.get('pitch_data') == last_note:
                     # Supplement last note's length and discard current.
                     syllables = increment_duration(syllables, note_attrs)
                 else:
@@ -104,7 +112,7 @@ def get_syllables(note_attr_list):
                     else:
                         syllables = append_syllable(syllables, 
                                 note_attrs.pop('lyric_1')['text'], note_attrs)
-                    last_note = note_attrs.get('pitch_data').get('step')
+                    last_note = note_attrs.get('pitch_data')
             else:
                 # Not tied. 
                 if 'tied' in note_attrs:
@@ -131,14 +139,17 @@ def get_syllables(note_attr_list):
     return syllables
 
 def append_syllable(syllables, value, note_attrs):
+    """Append value and note_attrs to syllabl.es"""
     syllables.append((value, [note_attrs]))
     return syllables
 
 def increment_duration(syllables, note_attrs):
+    """Combine the duration of current note to previous note."""
     syllables[-1][1][-1]['duration'] += note_attrs['duration']
     return syllables
 
 def display_children(notes):
+    """Display the children of a notes object. (Used for early debugging.)"""
     for note in notes:
         print('\nNew note:')
         for child in note.getchildren():

@@ -21,17 +21,10 @@ def test_get_notes_02():
 def test_get_note_attrs_01():
     xml_notes = R.get_notes(os.path.join(
             '..', 'test', 'data', 'test_accidentals.xml'))
-    assert R.get_note_attrs(xml_notes[0]) == {
-            'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-            'duration': 1}
-    assert R.get_note_attrs(xml_notes[1]) == {
-            'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-            'duration': 1}
-    assert R.get_note_attrs(xml_notes[2]) == {
-            'pitch_data': {'step': 'C', 'octave': '5'}, 'duration': 1}
-    assert R.get_note_attrs(xml_notes[3]) == {
-            'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-            'duration': 1}
+    assert R.get_note_attrs(xml_notes[0]) == {'pitch_data': 73, 'duration': 1}
+    assert R.get_note_attrs(xml_notes[1]) == {'pitch_data': 73, 'duration': 1}
+    assert R.get_note_attrs(xml_notes[2]) == {'pitch_data': 72, 'duration': 1}
+    assert R.get_note_attrs(xml_notes[3]) == {'pitch_data': 73, 'duration': 1}
     with pytest.raises(IndexError):
         R.get_note_attrs(xml_notes[4])
 
@@ -44,22 +37,22 @@ def test_get_note_attrs_02():
         assert R.get_note_attrs(xml_notes[1]) == {
                 'duration': 1, 'rest': True}
         assert R.get_note_attrs(xml_notes[2]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
+                'pitch_data': 73,
                 'duration': 2,
                 'lyric_1': {'syllabic': 'single', 'text': 'one'}}
         assert R.get_note_attrs(xml_notes[3]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
+                'pitch_data': 73,
                 'duration': 2,
                 'lyric_1': {'syllabic': 'single', 'text': 'two'}}
         assert R.get_note_attrs(xml_notes[4]) == {
-                'pitch_data': {'step': 'C', 'octave': '5'},
+                'pitch_data': 72,
                 'duration': 1, 'tied': True,
                 'lyric_1': {'syllabic': 'single', 'text': 'three'}}
         assert R.get_note_attrs(xml_notes[5]) == {
-                'pitch_data': {'step': 'C', 'octave': '5'},
+                'pitch_data': 72,
                 'duration': 1, 'tied': True}
         assert R.get_note_attrs(xml_notes[6]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
+                'pitch_data': 73,
                 'duration': 2,
                 'lyric_1': {'syllabic': 'single', 'text': 'four'}}
         assert R.get_note_attrs(xml_notes[7]) == {
@@ -76,20 +69,15 @@ def test_get_note_attrs_03():
         assert R.get_note_attrs(xml_notes[0]) == {
                 'duration': 720, 'rest': True}
         assert R.get_note_attrs(xml_notes[1]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 480}
+                'pitch_data': 73, 'duration': 480}
         assert R.get_note_attrs(xml_notes[2]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 480}
+                'pitch_data': 73, 'duration': 480}
         assert R.get_note_attrs(xml_notes[3]) == {
-                'pitch_data': {'step': 'C', 'octave': '5'},
-                'duration': 240, 'tied': True}
+                'pitch_data': 72, 'duration': 240, 'tied': True}
         assert R.get_note_attrs(xml_notes[4]) == {
-                'pitch_data': {'step': 'C', 'octave': '5'},
-                'duration': 240, 'tied': True}
+                'pitch_data': 72, 'duration': 240, 'tied': True}
         assert R.get_note_attrs(xml_notes[5]) == {
-                'pitch_data': {'step': 'C', 'alter': '1', 'octave': '5'},
-                'duration': 480}
+                'pitch_data': 73, 'duration': 480}
         assert R.get_note_attrs(xml_notes[6]) == {
                 'duration': 0, 'rest': True}
 
@@ -129,66 +117,53 @@ def test_check_consistency_05():
 def test_syllable_list_01():
     expected_result = [
             (None, [{'duration': 3}]),
-            ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                'duration': 2}]),
-            ('two', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                'duration': 2}]),
-            ('three', [{'pitch_data': {'octave': '5', 'step': 'C'},
-                'duration': 2}]),
-            ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
-                'C'}, 'duration': 2}]),
-            (None, [{'duration': 5}])]
+            ('one', [{'pitch_data': 73, 'duration': 2}]),
+            ('two', [{'pitch_data': 73, 'duration': 2}]),
+            ('three', [{'pitch_data': 72, 'duration': 2}]),
+            ('four', [{'pitch_data': 73, 'duration': 2}]),
+            (None, [{'duration': 5}])
+            ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline.xml')) == expected_result
 
 def test_syllable_list_02():
     expected_result = [
             (None, [{'duration': 3}]),
-            ('first', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
-                'C'}, 'duration': 2}]),
-            ('second', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
-                'C'}, 'duration': 2}]),
-            ('third', [{'pitch_data': {'octave': '5', 'step': 'C'},
-                'duration': 2}]),
-            ('fourth', [{'pitch_data': {'octave': '5', 'alter': '1', 'step':
-                'C'}, 'duration': 2}]),
-            (None, [{'duration': 8}])]
+            ('first', [{'pitch_data': 73, 'duration': 2}]),
+            ('second', [{'pitch_data': 73, 'duration': 2}]),
+            ('third', [{'pitch_data': 72, 'duration': 2}]),
+            ('fourth', [{'pitch_data': 73, 'duration': 2}]),
+            (None, [{'duration': 8}])
+            ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_8-8_and_lyrics.xml')) == expected_result
 
 def test_syllable_list_03():
     expected_result = [
             (None, [{'duration': 3}]),
-             ('one', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                 'duration': 2}]),
-             ('two',
-                 [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                     'duration': 1},
-                  {'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1}]),
-             ('three', [{'pitch_data': {'octave': '5', 'step': 'C'},
-                 'duration': 2}]),
-             ('four', [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                 'duration': 2}]),
-             (None, [{'duration': 5}])]
+            ('one', [{'duration': 2, 'pitch_data': 73}]),
+            ('two', [
+                    {'duration': 1, 'pitch_data': 73}, 
+                    {'duration': 1, 'pitch_data': 67}
+                    ]),
+            ('three', [{'duration': 2, 'pitch_data': 72}]),
+            ('four', [{'duration': 2, 'pitch_data': 73}]),
+             (None, [{'duration': 5}])
+             ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_melisma.xml')) == expected_result
 
 def test_syllable_list_04():
     expected_result = [
             (None, [{'duration': 3}]),
-             ('one',
-              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                  'duration': 2}]),
-             ('two',
-              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                  'duration': 1}]),
-             ('three',
-              [{'pitch_data': {'octave': '4', 'step': 'G'}, 'duration': 1},
-               {'pitch_data': {'octave': '5', 'step': 'C'},
-                   'duration': 2}]),
-             ('four',
-              [{'pitch_data': {'octave': '5', 'alter': '1', 'step': 'C'},
-                  'duration': 2}]),
-             (None, [{'duration': 5}])]
+            ('one', [{'duration': 2, 'pitch_data': 73}]),
+            ('two', [{'duration': 1, 'pitch_data': 73}]),
+            ('three', [
+                    {'duration': 1, 'pitch_data': 67}, 
+                    {'duration': 2, 'pitch_data': 72}
+                    ]),
+            ('four', [{'duration': 2, 'pitch_data': 73}]),
+            (None, [{'duration': 5}])
+            ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_tied_melisma.xml')) == expected_result
