@@ -15,7 +15,7 @@ def main(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
     xml_notes = get_notes(filename)
     note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
-    if check_consistency(note_attr_list):
+    if U.check_consistency(note_attr_list):
         syllables = get_syllables(note_attr_list)
     return syllables
 
@@ -70,20 +70,6 @@ def get_note_attrs(xml_note):
             lyric_number = child.items()[0][1]
             note_attrs['lyric_' + lyric_number] = {i.tag: i.text for i in child}
     return note_attrs
-
-def check_consistency(note_attr_list):
-    """Check that certain known problems do not occur (Not yet complete.)"""
-    consistency = True
-    for note_attr in note_attr_list:
-        if 'pitch_data' not in note_attr and 'rest' not in note_attr:
-            print('Neither pitch_data nor rest found in {}.'.format(note_attr))
-            consistency = False
-        elif 'pitch_data' in note_attr and 'rest' in note_attr:
-            print('Both pitch_data and rest found in {}.'.format(note_attr))
-            consistency = False
-        # Also, no "tied" in isolation and lyric only at start of "tied" chain.
-        # Does every note have duration?
-    return consistency
 
 def get_syllables(note_attr_list):
     """From list of note-by-note dictionaries produce list of syllables."""

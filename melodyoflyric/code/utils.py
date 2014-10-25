@@ -20,6 +20,20 @@ def step_to_midi(step, octave, alter=0):
     else:
         return midi_pitch
 
+def check_consistency(note_attr_list):
+    """Check that certain known problems do not occur (Not yet complete.)"""
+    consistency = True
+    for note_attr in note_attr_list:
+        if 'pitch_data' not in note_attr and 'rest' not in note_attr:
+            print('Neither pitch_data nor rest found in {}.'.format(note_attr))
+            consistency = False
+        elif 'pitch_data' in note_attr and 'rest' in note_attr:
+            print('Both pitch_data and rest found in {}.'.format(note_attr))
+            consistency = False
+        # Also, no "tied" in isolation and lyric only at start of "tied" chain.
+        # Does every note have duration?
+    return consistency
+
 def identify_tone(syllable):
     """From diacritics and final consonants, identify tone category and ○/●. """
     vowels = syllable.strip('bcghjklmnⁿpstz')
