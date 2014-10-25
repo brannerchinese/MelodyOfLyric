@@ -76,3 +76,23 @@ def test_step_to_midi_05():
     octave = 9
     with pytest.raises(Exception):
         U.step_to_midi(step, octave, alter)
+
+def test_identify_tone():
+    """From diacritics and final consonants, identify tone category and ○/●."""
+    assert U.identify_tone('chhiong') == ('yīnpíng', '○')
+    assert U.identify_tone('kui') == ('yīnpíng', '○')
+    assert U.identify_tone('gîm') == ('yángpíng', '○')
+    assert U.identify_tone('bî') == ('yángpíng', '○')
+    assert U.identify_tone('bêng') == ('yángpíng', '○')
+    assert U.identify_tone('ngớⁿ') == ('yīnshǎng', '●')
+    assert U.identify_tone('óng') == ('yīnshǎng', '●')
+    assert U.identify_tone('àm') == ('yīnqù', '●')
+    assert U.identify_tone('àm') == ('yīnqù', '●')
+    assert U.identify_tone('pòan') == ('yīnqù', '●')
+    assert U.identify_tone('bān') == ('yángqù', '●')
+    assert U.identify_tone('iā') == ('yángqù', '●')
+    assert U.identify_tone('ngơ̄ⁿ') == ('yángqù', '●')
+    assert U.identify_tone('sek') == ('yīnrù', '●')
+    assert U.identify_tone('khip') == ('yīnrù', '●')
+    assert U.identify_tone('to̍k') == ('yángrù', '●')
+    assert U.identify_tone('bu̍t') == ('yángrù', '●')
