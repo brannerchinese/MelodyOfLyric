@@ -89,14 +89,14 @@ def get_syllables(note_attr_list):
                 # Is last note's pitch same as pitch of current note?
                 if note_attrs.get('pitch_data') == last_note:
                     # Supplement last note's length and discard current.
-                    syllables = increment_duration(syllables, note_attrs)
+                    syllables = U.increment_duration(syllables, note_attrs)
                 else:
                     # Tied but not to previous note; must be to next note.
                     # Should therefore appear as new syllable.
                     if 'lyric_1' not in note_attrs:
                         syllables[-1][1].append(note_attrs)
                     else:
-                        syllables = append_syllable(syllables, 
+                        syllables = U.append_syllable(syllables, 
                                 note_attrs.pop('lyric_1')['text'], note_attrs)
                     last_note = note_attrs.get('pitch_data')
             else:
@@ -108,7 +108,7 @@ def get_syllables(note_attr_list):
                 if 'lyric_1' not in note_attrs:
                     syllables[-1][1].append(note_attrs)
                 else:
-                    syllables = append_syllable(syllables, 
+                    syllables = U.append_syllable(syllables, 
                             note_attrs.pop('lyric_1')['text'], note_attrs)
                 # Next time last_note is examined it should never match.
                 last_note = 'impossible starting value'
@@ -118,20 +118,10 @@ def get_syllables(note_attr_list):
             # If previous note was rest, 
             # increase its value and do not append this one.
             if last_note == None:
-                syllables = increment_duration(syllables, note_attrs)
+                syllables = U.increment_duration(syllables, note_attrs)
             else:
-                syllables = append_syllable(syllables, value, note_attrs)
+                syllables = U.append_syllable(syllables, value, note_attrs)
                 last_note = value
-    return syllables
-
-def append_syllable(syllables, value, note_attrs):
-    """Append value and note_attrs to syllabl.es"""
-    syllables.append((value, [note_attrs]))
-    return syllables
-
-def increment_duration(syllables, note_attrs):
-    """Combine the duration of current note to previous note."""
-    syllables[-1][1][-1]['duration'] += note_attrs['duration']
     return syllables
 
 def display_children(notes):
