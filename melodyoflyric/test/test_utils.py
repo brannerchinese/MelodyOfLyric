@@ -5,6 +5,7 @@
 import sys
 import os
 sys.path.append(os.path.join('..', 'code'))
+import read_xml as R
 import utils as U
 import pytest
 
@@ -76,6 +77,39 @@ def test_step_to_midi_05():
     octave = 9
     with pytest.raises(Exception):
         U.step_to_midi(step, octave, alter)
+
+def test_check_consistency_01():
+    xml_notes = R.get_notes(os.path.join(
+            '..', 'test', 'data', 'test_accidentals.xml'))
+    note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
+    assert U.check_consistency(note_attr_list)
+
+def test_check_consistency_02():
+    xml_notes = R.get_notes(os.path.join(
+            '..', 'test', 'data', 'test_cross_barline.xml'))
+    note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
+    assert U.check_consistency(note_attr_list)
+
+def test_check_consistency_03():
+    xml_notes = R.get_notes(os.path.join(
+            '..', 'test', 'data', 'test_cross_barline_8-8.xml'))
+    note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
+    assert U.check_consistency(note_attr_list)
+
+def test_check_consistency_04():
+    """Test of both 'pitch_data' and 'rest' in single note."""
+    xml_notes = R.get_notes(os.path.join(
+            '..', 'test', 'data', 'test_cross_barline_8-8_extra_rest.xml'))
+    note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
+    assert not U.check_consistency(note_attr_list)
+
+def test_check_consistency_05():
+    """Test of neither 'pitch_data' nor 'rest' in single note."""
+    xml_notes = R.get_notes(os.path.join(
+            '..', 'test', 'data',
+            'test_cross_barline_8-8_no_rest_no_pitch.xml'))
+    note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
+    assert not U.check_consistency(note_attr_list)
 
 def test_identify_tone():
     """Test tone category identification."""
