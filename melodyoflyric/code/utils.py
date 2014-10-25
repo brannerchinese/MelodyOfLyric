@@ -19,3 +19,28 @@ def step_to_midi(step, octave, alter=0):
         raise Exception
     else:
         return midi_pitch
+
+def identify_tone(syllable):
+    vowels = syllable.strip('bcghjklmnⁿpstz')
+    diacritic = vowels.strip('aeioơu')
+    if len(diacritic) > 1:
+        raise Exception('Syllable {} has more than one diacritic.'.
+                format(diacritic))
+    if diacritic and diacritic in 'âêîôơ̂û':
+        return ('yángpíng', '○')
+    elif syllable[-1] in 'ptkh':
+        # Rùshēng, and we are accounting for forms like mahⁿ (ⁿ stripped above).
+        if not diacritic:
+            return ('yīnrù', '●')
+        # diacritic in 'a̍e̍i̍o̍u̍'
+        else:
+            return ('yángrù', '●')
+    elif not diacritic:
+        return ('yīnpíng', '○')
+    elif diacritic and diacritic in 'āēīōơ̄ū':
+        return ('yángqù', '●')
+    elif diacritic and diacritic in 'àèìòờù':
+        return ('yīnqù', '●')
+    else:
+        # diacritic in 'áéíóớú'
+        return ('yīnshǎng', '●')
