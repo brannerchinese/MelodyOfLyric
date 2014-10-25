@@ -1,6 +1,6 @@
 # test_utils.py
 # David Prager Branner
-# 20141021
+# 20141024
 
 import sys
 import os
@@ -78,7 +78,7 @@ def test_step_to_midi_05():
         U.step_to_midi(step, octave, alter)
 
 def test_identify_tone():
-    """From diacritics and final consonants, identify tone category and ○/●."""
+    """Test tone category identification."""
     assert U.identify_tone('chhiong') == ('yīnpíng', '○')
     assert U.identify_tone('kui') == ('yīnpíng', '○')
     assert U.identify_tone('gîm') == ('yángpíng', '○')

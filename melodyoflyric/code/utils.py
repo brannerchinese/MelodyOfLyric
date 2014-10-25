@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # utils.py
 # David Prager Branner
-# 20141021
+# 20141025
 
 step_to_pitch = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 
@@ -21,6 +21,7 @@ def step_to_midi(step, octave, alter=0):
         return midi_pitch
 
 def identify_tone(syllable):
+    """From diacritics and final consonants, identify tone category and ○/●. """
     vowels = syllable.strip('bcghjklmnⁿpstz')
     diacritic = vowels.strip('aeioơu')
     if len(diacritic) > 1:
