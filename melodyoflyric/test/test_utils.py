@@ -111,8 +111,12 @@ def test_check_consistency_05():
     note_attr_list = [R.get_note_attrs(xml_note) for xml_note in xml_notes]
     assert not U.check_consistency(note_attr_list)
 
-def test_identify_tone():
+def test_identify_tone_01():
     """Test tone category identification."""
+    # Test all seven tones.
+    # Test all vowels.
+    # Test final ⁿ, up to two final and three initial consonants.
+    # Test diacritic on first of two vowels.
     assert U.identify_tone('chhiong') == ('yīnpíng', '○')
     assert U.identify_tone('kui') == ('yīnpíng', '○')
     assert U.identify_tone('gîm') == ('yángpíng', '○')
@@ -121,8 +125,8 @@ def test_identify_tone():
     assert U.identify_tone('ngớⁿ') == ('yīnshǎng', '●')
     assert U.identify_tone('óng') == ('yīnshǎng', '●')
     assert U.identify_tone('àm') == ('yīnqù', '●')
-    assert U.identify_tone('àm') == ('yīnqù', '●')
     assert U.identify_tone('pòan') == ('yīnqù', '●')
+    assert U.identify_tone('sòe') == ('yīnqù', '●')
     assert U.identify_tone('bān') == ('yángqù', '●')
     assert U.identify_tone('iā') == ('yángqù', '●')
     assert U.identify_tone('ngơ̄ⁿ') == ('yángqù', '●')
@@ -130,3 +134,14 @@ def test_identify_tone():
     assert U.identify_tone('khip') == ('yīnrù', '●')
     assert U.identify_tone('to̍k') == ('yángrù', '●')
     assert U.identify_tone('bu̍t') == ('yángrù', '●')
+
+def test_identify_tone_01():
+    """Test fail on multiple diacritic."""
+    with pytest.raises(Exception):
+        U.identify_tone('bêòng')
+    with pytest.raises(Exception):
+        U.identify_tone('sòòk')
+    with pytest.raises(Exception):
+        U.identify_tone('gîîm')
+    with pytest.raises(Exception):
+        U.identify_tone('gîiîm')
