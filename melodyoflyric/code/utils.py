@@ -61,7 +61,7 @@ def identify_tone(syllable):
         return ('yīnshǎng', '●')
 
 def append_syllable(syllables, value, note_attrs):
-    """Append value and note_attrs to syllabl.es"""
+    """Append value and note_attrs to syllables."""
     syllables.append((value, [note_attrs]))
     return syllables
 

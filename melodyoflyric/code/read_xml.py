@@ -33,18 +33,6 @@ def get_notes(filename):
     xml_notes = root.xpath('//note')
     return xml_notes
 
-def display_notes(xml_notes):
-    """Print all subitems of all notes."""
-    for note in notes:
-        for item in note:
-            if not item:
-                continue
-            print('  item: {}; subitems: {}'.format(item, list(item)))
-            for subitem in item:
-                print('    subitem: {}'.format(subitem))
-                for subsubitem in subitem:
-                    print('      subsubitem: {}'.format(subsubitem))
-
 def get_note_attrs(xml_note):
     """For a given note return the elements we need."""
     note_attrs = {}
@@ -142,3 +130,16 @@ def display_children(notes):
                             format(grandchild[0], grandchild[1]), 
                             end='\t')
             print()
+
+def display_notes(xml_notes):
+    """Print all subitems of all notes. (Used for early debugging.)"""
+    for note in notes:
+        for item in note:
+            if not item:
+                continue
+            print('  item: {}; subitems: {}'.format(item, list(item)))
+            for subitem in item:
+                print('    subitem: {}'.format(subitem))
+                for subsubitem in subitem:
+                    print('      subsubitem: {}'.format(subsubitem))
+
