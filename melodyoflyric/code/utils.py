@@ -36,7 +36,7 @@ def check_consistency(note_attr_list):
 
 def identify_tone(syllable):
     """From diacritics and final consonants, identify tone category and ○/●. """
-    vowels = syllable.strip('bcghjklmnⁿpstz')
+    vowels = syllable.strip('bcghjklmnⁿpstyz')
     diacritic = vowels.strip('aeioơu')
     if len(diacritic) > 1:
         raise Exception('Syllable {} has more than one diacritic.'.
