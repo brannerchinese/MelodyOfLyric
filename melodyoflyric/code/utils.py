@@ -60,13 +60,13 @@ def identify_tone(syllable):
         # diacritic in 'áéíóớú'
         return ('yīnshǎng', '●')
 
-def append_syllable(syllables, value, note_attrs):
+def append_syllable(syllables, value, syllabic, note_attrs):
     """Append value and note_attrs to syllables."""
-    syllables.append((value, [note_attrs]))
+    syllables.append((value, syllabic, [note_attrs]))
     return syllables
 
 def increment_duration(syllables, note_attrs):
     """Combine the duration of current note to previous note."""
-    syllables[-1][1][-1]['duration'] += note_attrs['duration']
+    syllables[-1][-1][-1]['duration'] += note_attrs['duration']
     return syllables
 

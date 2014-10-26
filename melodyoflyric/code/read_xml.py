@@ -82,10 +82,11 @@ def get_syllables(note_attr_list):
                     # Tied but not to previous note; must be to next note.
                     # Should therefore appear as new syllable.
                     if 'lyric_1' not in note_attrs:
-                        syllables[-1][1].append(note_attrs)
+                        syllables[-1][2].append(note_attrs)
                     else:
+                        lyric = note_attrs.pop('lyric_1')
                         syllables = U.append_syllable(syllables, 
-                                note_attrs.pop('lyric_1')['text'], note_attrs)
+                                lyric['text'], lyric['syllabic'], note_attrs)
                     last_note = note_attrs.get('pitch_data')
             else:
                 # Not tied. 
@@ -94,10 +95,11 @@ def get_syllables(note_attr_list):
                 # Pop current syllable; deal with lyric_1 by default.
                 # But if no lyric is present, append note to previous syllable.
                 if 'lyric_1' not in note_attrs:
-                    syllables[-1][1].append(note_attrs)
+                    syllables[-1][2].append(note_attrs)
                 else:
+                    lyric = note_attrs.pop('lyric_1')
                     syllables = U.append_syllable(syllables, 
-                            note_attrs.pop('lyric_1')['text'], note_attrs)
+                            lyric['text'], lyric['syllabic'], note_attrs)
                 # Next time last_note is examined it should never match.
                 last_note = 'impossible starting value'
         else:
@@ -108,7 +110,8 @@ def get_syllables(note_attr_list):
             if last_note == None:
                 syllables = U.increment_duration(syllables, note_attrs)
             else:
-                syllables = U.append_syllable(syllables, value, note_attrs)
+                syllables = U.append_syllable(
+                        syllables, value, value, note_attrs)
                 last_note = value
     return syllables
 

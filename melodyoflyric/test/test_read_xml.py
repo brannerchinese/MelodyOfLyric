@@ -83,54 +83,54 @@ def test_get_note_attrs_03():
 
 def test_syllable_list_01():
     expected_result = [
-            (None, [{'duration': 3}]),
-            ('one', [{'pitch_data': 73, 'duration': 2}]),
-            ('two', [{'pitch_data': 73, 'duration': 2}]),
-            ('three', [{'pitch_data': 72, 'duration': 2}]),
-            ('four', [{'pitch_data': 73, 'duration': 2}]),
-            (None, [{'duration': 5}])
+            (None, None, [{'duration': 3}]),
+            ('one', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            ('two', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            ('three', 'single', [{'pitch_data': 72, 'duration': 2}]),
+            ('four', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            (None, None, [{'duration': 5}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline.xml')) == expected_result
 
 def test_syllable_list_02():
     expected_result = [
-            (None, [{'duration': 3}]),
-            ('first', [{'pitch_data': 73, 'duration': 2}]),
-            ('second', [{'pitch_data': 73, 'duration': 2}]),
-            ('third', [{'pitch_data': 72, 'duration': 2}]),
-            ('fourth', [{'pitch_data': 73, 'duration': 2}]),
-            (None, [{'duration': 8}])
+            (None, None, [{'duration': 3}]),
+            ('first', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            ('second', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            ('third', 'single', [{'pitch_data': 72, 'duration': 2}]),
+            ('fourth', 'single', [{'pitch_data': 73, 'duration': 2}]),
+            (None, None, [{'duration': 8}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_8-8_and_lyrics.xml')) == expected_result
 
 def test_syllable_list_03():
     expected_result = [
-            (None, [{'duration': 3}]),
-            ('one', [{'duration': 2, 'pitch_data': 73}]),
-            ('two', [
+            (None, None, [{'duration': 3}]),
+            ('one', 'single', [{'duration': 2, 'pitch_data': 73}]),
+            ('two', 'single', [
                     {'duration': 1, 'pitch_data': 73}, 
                     {'duration': 1, 'pitch_data': 67}
                     ]),
-            ('three', [{'duration': 2, 'pitch_data': 72}]),
-            ('four', [{'duration': 2, 'pitch_data': 73}]),
-             (None, [{'duration': 5}])
+            ('three', 'single', [{'duration': 2, 'pitch_data': 72}]),
+            ('four', 'single', [{'duration': 2, 'pitch_data': 73}]),
+             (None, None, [{'duration': 5}])
              ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_melisma.xml')) == expected_result
 
 def test_syllable_list_04():
     expected_result = [
-            (None, [{'duration': 3}]),
-            ('one', [{'duration': 2, 'pitch_data': 73}]),
-            ('two', [{'duration': 1, 'pitch_data': 73}]),
-            ('three', [
+            (None, None, [{'duration': 3}]),
+            ('one', 'single', [{'duration': 2, 'pitch_data': 73}]),
+            ('two', 'single', [{'duration': 1, 'pitch_data': 73}]),
+            ('three', 'single', [
                     {'duration': 1, 'pitch_data': 67}, 
                     {'duration': 2, 'pitch_data': 72}
                     ]),
-            ('four', [{'duration': 2, 'pitch_data': 73}]),
-            (None, [{'duration': 5}])
+            ('four', 'single', [{'duration': 2, 'pitch_data': 73}]),
+            (None, None, [{'duration': 5}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_tied_melisma.xml')) == expected_result
