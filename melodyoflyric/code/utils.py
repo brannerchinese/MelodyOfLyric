@@ -78,3 +78,19 @@ def sum_syllable_durations(syllable_tuple):
     for note in syllable_tuple[-1]:
         total_duration += note['duration']
     return total_duration
+
+def get_melody(xml_notes, divisions):
+    return [
+            R.get_note_attrs(xml_note, divisions)['pitch_data'] 
+            for xml_note in xml_notes]
+
+def get_intervals(melody):
+    return [second - first for first, second in zip(melody, melody[1:])]
+
+def nest_sublists(lst, length):
+    """Given a flat list, create nested sublists each <= length."""
+    return [
+        [sublist for sublist in lst[index:index+length]]
+            for index in range(0, len(lst), length)
+            if index <= len(lst)
+        ]
