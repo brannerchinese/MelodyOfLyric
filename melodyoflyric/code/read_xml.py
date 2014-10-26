@@ -14,7 +14,8 @@ import utils as U
 def main(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141025.xml')):
     xml_notes, divisions = get_notes(filename)
-    note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
+    note_attr_list = [
+            get_note_attrs(xml_note, divisions) for xml_note in xml_notes]
     if U.check_consistency(note_attr_list):
         syllables = get_syllables(note_attr_list)
     return syllables, divisions
@@ -35,9 +36,9 @@ def get_notes(filename):
     if len(divisions) > 1:
         raise Exception('<divisions> element is of cardinality {}.'.
                 format(len(divisions)))
-    return xml_notes, divisions[0].text
+    return xml_notes, int(divisions[0].text)
 
-def get_note_attrs(xml_note):
+def get_note_attrs(xml_note, divisions):
     """For a given note return the elements we need."""
     note_attrs = {}
     for child in xml_note.getchildren():
@@ -55,7 +56,7 @@ def get_note_attrs(xml_note):
         elif child.tag == 'rest':
             note_attrs['rest'] = True
         elif child.tag == 'duration':
-            note_attrs['duration'] = int(child.text)
+            note_attrs['duration'] = int(child.text) / divisions
         elif child.tag == 'notations':
             note_attrs['tied'] = any([True for i in child if i.tag == 'tied'])
         elif child.tag == 'lyric':

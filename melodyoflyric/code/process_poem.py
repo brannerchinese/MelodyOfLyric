@@ -9,16 +9,17 @@ import utils as U
 
 def get_syllables(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141025.xml')):
-    """Get all syllables of poem, their tones, and their durations."""
+    """Get all text syllables of poem, their tones, and their durations."""
+    syllables, divisions = R.main(filename)
     syllables = [(
             syllable[0], 
             U.identify_tone(syllable[0]), 
             U.sum_syllable_durations(syllable)) 
-                for syllable in R.main(filename)[0] if syllable[0]
+                for syllable in syllables if syllable[0]
             ]
-    return syllables
+    return syllables, divisions
 
-def avg_duration_by_place(syllables, places=[7]):
+def avg_duration_by_place(syllables, divisions, places=[7]):
     place_counts = [[0, 0] for i in range(places[0])] # what about |place| > 1?
     for i, syllable in enumerate(syllables):
         place_counts[i % places[0]][0] += 1
@@ -30,7 +31,7 @@ def avg_duration_by_place(syllables, places=[7]):
             if i[0] != 0]
     return place_counts
 
-def avg_duration_by_tone(syllables):
+def avg_duration_by_tone(syllables, divisions):
     tone_counts = {'yīnpíng': [0, 0], 
               'yángpíng': [0, 0], 
               'yīnshǎng': [0, 0], 
@@ -48,7 +49,7 @@ def avg_duration_by_tone(syllables):
             if tone_counts[i][0] != 0}
     return tone_counts
 
-def avg_duration_by_pyngtzeh(syllables):
+def avg_duration_by_pyngtzeh(syllables, divisions):
     pyngtzeh_counts = {'○': [0, 0], 
               '●': [0, 0]}
     for syllable in syllables:
@@ -61,7 +62,7 @@ def avg_duration_by_pyngtzeh(syllables):
             if pyngtzeh_counts[i][0] != 0}
     return pyngtzeh_counts
 
-def avg_duration_by_place_and_tone(syllables, places=[7]):
+def avg_duration_by_place_and_tone(syllables, divisions, places=[7]):
     tone_place_counts = {
             'yīnpíng': [[0, 0] for i in range(places[0])], 
             'yángpíng': [[0, 0] for i in range(places[0])], 
@@ -84,7 +85,7 @@ def avg_duration_by_place_and_tone(syllables, places=[7]):
             }
     return tone_place_counts
 
-def avg_duration_by_place_and_pyngtzeh(syllables, places=[7]):
+def avg_duration_by_place_and_pyngtzeh(syllables, divisions, places=[7]):
     pyngtzeh_place_counts = {
             '○': [[0, 0] for i in range(places[0])], 
             '●': [[0, 0] for i in range(places[0])]}
