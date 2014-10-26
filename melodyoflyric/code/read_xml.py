@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # read_xml.py
 # David Prager Branner
-# 20141024
+# 20141025
 
 """Open and analyze a MusicXML file."""
 
@@ -12,7 +12,7 @@ import lxml.etree
 import utils as U
 
 def main(filename=os.path.join(
-        '..', 'data', 'sheu_ityng_pyiparshyng_20141009.xml')):
+        '..', 'data', 'sheu_ityng_pyiparshyng_20141025.xml')):
     xml_notes = get_notes(filename)
     note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
     if U.check_consistency(note_attr_list):
