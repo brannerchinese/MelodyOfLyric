@@ -70,3 +70,11 @@ def increment_duration(syllables, note_attrs):
     syllables[-1][-1][-1]['duration'] += note_attrs['duration']
     return syllables
 
+def sum_syllable_durations(syllable_tuple):
+    """Given a syllable_tuple, sum the durations of its notes and return."""
+#    if syllable_tuple[0] == None:
+#        return
+    total_duration = 0
+    for note in syllable_tuple[-1]:
+        total_duration += note['duration']
+    return total_duration
