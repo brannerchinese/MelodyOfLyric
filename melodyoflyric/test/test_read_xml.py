@@ -134,3 +134,24 @@ def test_syllable_list_04():
             ]
     assert R.main(os.path.join('..', 'test', 'data',
             'test_cross_barline_with_tied_melisma.xml')) == expected_result
+
+def test_syllable_list_05():
+    """Test case in which "syllabic" includes 'begin' and 'end'."""
+    expected_result = [
+            (None, None, [{'duration': 1}]),
+            ('kú', 'begin',
+             [{'duration': 2,
+               'lyric_2': {'text': '舉', 'syllabic': 'single'},
+               'pitch_data': 59}]),
+            ('chiú', 'end',
+             [{'duration': 1,
+               'lyric_2': {'text': '酒', 'syllabic': 'single'},
+               'pitch_data': 59},
+              {'duration': 2, 'pitch_data': 57},
+              {'duration': 1, 'pitch_data': 55}]),
+            ('io̍k', 'single',
+             [{'duration': 1,
+               'lyric_2': {'text': '欲', 'syllabic': 'single'},
+               'pitch_data': 52}])]
+    assert R.main(os.path.join('..', 'test', 'data',
+            'test_syllabics_and_melisma.xml')) == expected_result
