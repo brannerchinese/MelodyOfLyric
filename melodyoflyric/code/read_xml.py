@@ -34,7 +34,7 @@ def get_notes(filename):
     divisions = root.xpath('//divisions')
     if len(divisions) > 1:
         raise Exception('<divisions> element is of cardinality {}.'.
-                format(len(divisions))
+                format(len(divisions)))
     return xml_notes, divisions[0].text
 
 def get_note_attrs(xml_note):
