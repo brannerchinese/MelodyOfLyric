@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # read_xml.py
 # David Prager Branner
-# 20141025
+# 20141026
 
 """Open and analyze a MusicXML file."""
 
@@ -13,11 +13,11 @@ import utils as U
 
 def main(filename=os.path.join(
         '..', 'data', 'sheu_ityng_pyiparshyng_20141025.xml')):
-    xml_notes = get_notes(filename)
+    xml_notes, divisions = get_notes(filename)
     note_attr_list = [get_note_attrs(xml_note) for xml_note in xml_notes]
     if U.check_consistency(note_attr_list):
         syllables = get_syllables(note_attr_list)
-    return syllables
+    return syllables, divisions
 
 def get_notes(filename):
     """Return list of 'note' elements from MusicXML file."""
@@ -31,7 +31,11 @@ def get_notes(filename):
         exc_type, exc_value, exc_traceback = sys.exc_info()
         traceback.print_exception(exc_type, exc_value, exc_traceback)
     xml_notes = root.xpath('//note')
-    return xml_notes
+    divisions = root.xpath('//divisions')
+    if len(divisions) > 1:
+        raise Exception('<divisions> element is of cardinality {}.'.
+                format(len(divisions))
+    return xml_notes, divisions[0].text
 
 def get_note_attrs(xml_note):
     """For a given note return the elements we need."""

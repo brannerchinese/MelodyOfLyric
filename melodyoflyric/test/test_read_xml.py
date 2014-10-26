@@ -1,6 +1,6 @@
 # test_utils.py
 # David Prager Branner
-# 20141024
+# 20141026
 
 import sys
 import os
@@ -11,16 +11,17 @@ import pytest
 
 def test_get_notes_01():
     # Four quarter notes.
-    assert len(R.get_notes(os.path.join('data', 'test_accidentals.xml'))) == 4
+    assert len(R.get_notes(
+            os.path.join('data', 'test_accidentals.xml'))[0]) == 4
 
 def test_get_notes_02():
     # Two rests, three untied notes, a pair of tied notes, three more rests.
     assert len(R.get_notes(os.path.join(
-            'data', 'test_cross_barline.xml'))) == 10
+            'data', 'test_cross_barline.xml'))[0]) == 10
 
 def test_get_note_attrs_01():
     xml_notes = R.get_notes(os.path.join(
-            '..', 'test', 'data', 'test_accidentals.xml'))
+            '..', 'test', 'data', 'test_accidentals.xml'))[0]
     assert R.get_note_attrs(xml_notes[0]) == {'pitch_data': 73, 'duration': 1}
     assert R.get_note_attrs(xml_notes[1]) == {'pitch_data': 73, 'duration': 1}
     assert R.get_note_attrs(xml_notes[2]) == {'pitch_data': 72, 'duration': 1}
@@ -30,7 +31,7 @@ def test_get_note_attrs_01():
 
 def test_get_note_attrs_02():
     xml_notes = R.get_notes(os.path.join(
-            '..', 'test', 'data', 'test_cross_barline.xml'))
+            '..', 'test', 'data', 'test_cross_barline.xml'))[0]
     for i, note in enumerate(xml_notes):
         assert R.get_note_attrs(xml_notes[0]) == {
                 'duration': 2, 'rest': True}
@@ -64,7 +65,7 @@ def test_get_note_attrs_02():
 
 def test_get_note_attrs_03():
     xml_notes = R.get_notes(os.path.join(
-            '..', 'test', 'data', 'test_cross_barline_8-8.xml'))
+            '..', 'test', 'data', 'test_cross_barline_8-8.xml'))[0]
     for i, note in enumerate(xml_notes):
         assert R.get_note_attrs(xml_notes[0]) == {
                 'duration': 720, 'rest': True}
@@ -91,7 +92,7 @@ def test_syllable_list_01():
             (None, None, [{'duration': 5}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
-            'test_cross_barline.xml')) == expected_result
+            'test_cross_barline.xml'))[0] == expected_result
 
 def test_syllable_list_02():
     expected_result = [
@@ -103,7 +104,7 @@ def test_syllable_list_02():
             (None, None, [{'duration': 8}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
-            'test_cross_barline_8-8_and_lyrics.xml')) == expected_result
+            'test_cross_barline_8-8_and_lyrics.xml'))[0] == expected_result
 
 def test_syllable_list_03():
     expected_result = [
@@ -118,7 +119,7 @@ def test_syllable_list_03():
              (None, None, [{'duration': 5}])
              ]
     assert R.main(os.path.join('..', 'test', 'data',
-            'test_cross_barline_with_melisma.xml')) == expected_result
+            'test_cross_barline_with_melisma.xml'))[0] == expected_result
 
 def test_syllable_list_04():
     expected_result = [
@@ -133,7 +134,7 @@ def test_syllable_list_04():
             (None, None, [{'duration': 5}])
             ]
     assert R.main(os.path.join('..', 'test', 'data',
-            'test_cross_barline_with_tied_melisma.xml')) == expected_result
+            'test_cross_barline_with_tied_melisma.xml'))[0] == expected_result
 
 def test_syllable_list_05():
     """Test case in which "syllabic" includes 'begin' and 'end'."""
@@ -154,4 +155,4 @@ def test_syllable_list_05():
                'lyric_2': {'text': '欲', 'syllabic': 'single'},
                'pitch_data': 52}])]
     assert R.main(os.path.join('..', 'test', 'data',
-            'test_syllabics_and_melisma.xml')) == expected_result
+            'test_syllabics_and_melisma.xml'))[0] == expected_result

@@ -4,7 +4,7 @@
  
  1. Do different tones tend to begin lower or higher than their environment?
  
- 1. What is the average length of each syllable-position? And of each tone in each syllable-position?
+ 1. What is the average length of each syllable-position? And of each tone in each syllable-position? DONE
  
  1. How much melisma is associated with each syllable-position? And with each tone in each syllable-position?
 
