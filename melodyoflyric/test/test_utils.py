@@ -145,3 +145,12 @@ def test_identify_tone_01():
         U.identify_tone('gîîm')
     with pytest.raises(Exception):
         U.identify_tone('gîiîm')
+
+def test_sum_syllable_durations_01():
+    """Test summing syllable durations, melismatic and non-melismatic cases."""
+    syllables = R.main(os.path.join(
+            '..', 'test', 'data', 'test_syllabics_and_melisma.xml'))
+    assert U.sum_syllable_durations(syllables[0]) == 1
+    assert U.sum_syllable_durations(syllables[1]) == 2
+    assert U.sum_syllable_durations(syllables[2]) == 4 # melismatic
+    assert U.sum_syllable_durations(syllables[3]) == 1
