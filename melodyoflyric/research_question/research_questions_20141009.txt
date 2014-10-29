@@ -8,10 +8,15 @@
  
  1. How much melisma is associated with each syllable-position? And with each tone in each syllable-position?
 
- 1. What is the usual interval pattern of melismatic notes for a given tone?
+ 1. What is the usual interval pattern of melismatic notes for a given tone? Does sandhi affect this issue?
 
- 1. What is the usual interval after a given tone?
+ 1. What is the usual interval after a given tone? Does sandhi affect this issue?
+ 
+ 1. What are the usual non-melismatic values? — report percentage of melismatic vs. non-melismatic.
 
+ 1. Test for presence of notes without words.
+ 
+ 1. 
 
 
 [end]
