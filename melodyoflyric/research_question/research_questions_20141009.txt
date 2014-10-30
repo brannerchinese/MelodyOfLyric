@@ -13,6 +13,10 @@
  1. What is the usual interval after a given tone? Does sandhi affect this issue?
  
  1. What are the usual non-melismatic values? — report percentage of melismatic vs. non-melismatic.
+ 
+ 1. Taiwanese to check:
+ 
+   2. 浸 chìm
 
  1. Test for presence of notes without words.
  
