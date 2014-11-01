@@ -1,6 +1,10 @@
+# 20141031
+
 import read_xml as R
 import utils as U
 from collections import Counter
+
+"""Generate melisma data."""
 
 def main():
     # Get list of syllables
