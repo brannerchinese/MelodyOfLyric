@@ -5,6 +5,15 @@
 
 step_to_pitch = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 
+seven_tones = [
+        'yīnpíng',
+        'yángpíng',
+        'yīnshǎng',
+        'yīnqù',
+        'yángqù',
+        'yīnrù',
+        'yángrù']
+
 def step_to_midi(step, octave, alter=0):
     """Produce the MIDI note number and do basic validation."""
     # Note that MIDI treats Middle C as note 60 (octave 5); MusicXML treats it

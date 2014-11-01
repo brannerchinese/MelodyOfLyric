@@ -8,7 +8,7 @@ import read_xml as R
 import utils as U
 
 def get_syllables(filename=os.path.join(
-        '..', 'data', 'sheu_ityng_pyiparshyng_20141025.xml')):
+        '..', 'data', 'sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml')):
     """Get all text syllables of poem, their tones, and their durations."""
     syllables, divisions = R.main(filename)
     syllables = [(
