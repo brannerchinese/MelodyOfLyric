@@ -2,12 +2,6 @@
 
  1. How much melodic repetition is there? Do edit distance on sequences of intervals. How do we handle ornamentation there?
  
- 1. Do different tones tend to begin lower or higher than their environment?
- 
- 1. What is the average length of each syllable-position? And of each tone in each syllable-position? DONE
- 
- 1. How much melisma is associated with each syllable-position? And with each tone in each syllable-position?
-
  1. What is the usual interval pattern of melismatic notes for a given tone? Does sandhi affect this issue?
 
  1. What is the usual interval after a given tone? Does sandhi affect this issue?
@@ -20,7 +14,14 @@
 
  1. Test for presence of notes without words.
  
- 1. 
+----
 
+**Items Done**
+
+ 1. Do different tones tend to begin lower or higher than their environment? DONE
+ 
+ 1. What is the average length of each syllable-position? And of each tone in each syllable-position? DONE
+ 
+ 1. How much melisma is associated with each syllable-position? And with each tone in each syllable-position? DONE
 
 [end]
