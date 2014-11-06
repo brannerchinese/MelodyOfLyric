@@ -107,6 +107,7 @@ def count_melodies(shortest, longest=0, filename=os.path.join(
             '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
     """Report any sequences of intervals that appear more than once."""
     # QQQ not yet in test suite!
+    # QQQ we would like to see the lyrics in question here, not note- indices.
     xml_notes, divisions = R.get_notes(filename)
     melody = U.get_melody(xml_notes, divisions)
     intervals = U.get_intervals(melody)
