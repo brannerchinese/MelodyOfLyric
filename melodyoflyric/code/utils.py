@@ -104,13 +104,11 @@ def nest_sublists(lst, length):
             if index <= len(lst)
         ]
 
-def find_all_substrings(s, shortest, longest):
+def find_all_substrings(s, shortest, longest=0):
     """Return all substrings of s in given length range, with starting index."""
     if longest <= shortest:
         longest = shortest + 1
-    motifs = []
-    for length in range(shortest, longest):
-        for i in range(len(s) - length + 1):
-            motifs.append((i, s[i:i+length]))
-    return motifs
-
+    substrings = [(i, s[i:i+length])
+            for length in range(shortest, longest)
+            for i in range(len(s) - length + 1)]
+    return substrings
