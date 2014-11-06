@@ -1,7 +1,7 @@
 ## Research Questions
 
  1. How much melodic repetition is there? Do edit distance on sequences of intervals. How do we handle ornamentation there?
- 
+
  1. What is the usual interval pattern of melismatic notes for a given tone? Does sandhi affect this issue?
 
  1. What is the usual interval after a given tone? Does sandhi affect this issue?

@@ -1,6 +1,6 @@
 # test_utils.py
 # David Prager Branner
-# 20141026
+# 20141106
 
 import sys
 import os
@@ -8,6 +8,7 @@ sys.path.append(os.path.join('..', 'code'))
 import read_xml as R
 import utils as U
 import pytest
+import string
 
 def test_step_to_midi_01():
     """Test handling of some known notes."""
@@ -179,3 +180,20 @@ def test_nest_sublists_01():
             [91, 92, 93, 94, 95, 96, 97],
             [98, 99]]
     U.nest_sublists(lst, length) == expected_result
+
+s = string.ascii_lowercase
+
+def test_find_all_substrings_01():
+    """Test that "longest" > len(s) does not raise error."""
+    assert (U.find_all_substrings(s, 17, 300) ==
+            U.find_all_substrings(s, 17, 27))
+
+def test_find_all_substrings_02():
+    """Test that "longest" < len(s) does not raise error."""
+    assert (U.find_all_substrings(s, 17, 5) ==
+            U.find_all_substrings(s, 17, 18))
+
+def test_find_all_substrings_03():
+    """Test that "longest" == len(s) does not raise error."""
+    assert (U.find_all_substrings(s, 17, 17) ==
+            U.find_all_substrings(s, 17, 18))

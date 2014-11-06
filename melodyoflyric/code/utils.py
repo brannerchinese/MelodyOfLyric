@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # utils.py
 # David Prager Branner
-# 20141025
+# 20141106
 
 step_to_pitch = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 
@@ -90,7 +90,7 @@ def sum_syllable_durations(syllable_tuple):
 
 def get_melody(xml_notes, divisions):
     return [
-            R.get_note_attrs(xml_note, divisions)['pitch_data'] 
+            R.get_note_attrs(xml_note, divisions)['pitch_data']
             for xml_note in xml_notes]
 
 def get_intervals(melody):
@@ -103,3 +103,14 @@ def nest_sublists(lst, length):
             for index in range(0, len(lst), length)
             if index <= len(lst)
         ]
+
+def find_all_substrings(s, shortest, longest):
+    """Return all substrings of s in given length range, with starting index."""
+    if longest <= shortest:
+        longest = shortest + 1
+    motifs = []
+    for length in range(shortest, longest):
+        for i in range(len(s) - length + 1):
+            motifs.append((i, s[i:i+length]))
+    return motifs
+
