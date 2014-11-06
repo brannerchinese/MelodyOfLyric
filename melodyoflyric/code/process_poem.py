@@ -8,7 +8,8 @@ import read_xml as R
 import utils as U
 
 def get_syllables(filename=os.path.join(
-        '..', 'data', 'sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml')):
+        '..', 'data', 
+        '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
     """Get all text syllables of poem, their tones, and their durations."""
     syllables, divisions = R.main(filename)
     syllables = [(
@@ -107,7 +108,7 @@ def count_melodies(shortest, longest=0, filename=os.path.join(
             '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
     """Report any sequences of intervals that appear more than once."""
     # QQQ not yet in test suite!
-    # QQQ we would like to see the lyrics in question here, not note- indices.
+    # QQQ for lyrics in question here, not note-indices, see which_syll_is_note.
     xml_notes, divisions = R.get_notes(filename)
     melody = U.get_melody(xml_notes, divisions)
     intervals = U.get_intervals(melody)
@@ -118,6 +119,22 @@ def count_melodies(shortest, longest=0, filename=os.path.join(
             interval_count[substring[1]].append(substring[0])
         else:
             interval_count[substring[1]] = [substring[0]]
-    interval_count = {key: interval_count[key] for key in interval_count
+    interval_count_over_1 = {key: interval_count[key] for key in interval_count
             if len(interval_count[key]) > 1}
-    return interval_count
+    return interval_count_over_1, interval_count
+
+def which_syll_is_note(filename=os.path.join(
+            '..', 'data', 
+            '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
+    """What syllables do the notes returned by count_melodies correspond to?"""
+    # QQQ These numbers do not yet math the output of count_melodies.
+    # QQQ Not yet in test suite!
+    syllables, divisions = R.main(filename)
+    # Eliminate rests.
+    syllables = [syllable for syllable in syllables if syllable[0]]
+    notes_to_sylls = []
+    for syllable in syllables:
+        lyric = syllable[0]
+        for pitch in syllable[2]:
+            notes_to_sylls.append((pitch['pitch_data'], lyric))
+    return notes_to_sylls
