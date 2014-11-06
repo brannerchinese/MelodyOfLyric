@@ -9,6 +9,7 @@ import read_xml as R
 import utils as U
 import pytest
 import string
+import random
 
 def test_step_to_midi_01():
     """Test handling of some known notes."""
@@ -184,16 +185,25 @@ def test_nest_sublists_01():
 s = string.ascii_lowercase
 
 def test_find_all_substrings_01():
-    """Test that "longest" > len(s) does not raise error."""
+    """Test that "longest" > len(s) becomes len(s) + 1."""
     assert (U.find_all_substrings(s, 17, 300) ==
             U.find_all_substrings(s, 17, 27))
+    s2 = ''.join([random.choice(s) for i in range(100)])
+    assert (U.find_all_substrings(s2, 17, 300) ==
+            U.find_all_substrings(s2, 17, len(s2) + 1))
 
 def test_find_all_substrings_02():
-    """Test that "longest" < len(s) does not raise error."""
+    """Test that "longest" < shortest becomes shortest + 1."""
     assert (U.find_all_substrings(s, 17, 5) ==
             U.find_all_substrings(s, 17, 18))
+    s2 = ''.join([random.choice(s) for i in range(100)])
+    assert (U.find_all_substrings(s2, 17, 5) ==
+            U.find_all_substrings(s2, 17, 18))
 
 def test_find_all_substrings_03():
-    """Test that "longest" == len(s) does not raise error."""
+    """Test that "longest" == shortest becomes shortest + 1."""
     assert (U.find_all_substrings(s, 17, 17) ==
             U.find_all_substrings(s, 17, 18))
+    s2 = ''.join([random.choice(s) for i in range(100)])
+    assert (U.find_all_substrings(s2, 17, 17) ==
+            U.find_all_substrings(s2, 17, 18))
