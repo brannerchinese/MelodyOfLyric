@@ -3,6 +3,8 @@
 # David Prager Branner
 # 20141106
 
+import read_xml as R
+
 step_to_pitch = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 
 seven_tones = [
@@ -89,12 +91,16 @@ def sum_syllable_durations(syllable_tuple):
     return total_duration
 
 def get_melody(xml_notes, divisions):
-    return [
-            R.get_note_attrs(xml_note, divisions)['pitch_data']
+    """Strip rests and then return only pitch data for each remaining note."""
+    attributes = [
+            R.get_note_attrs(xml_note, divisions)
             for xml_note in xml_notes]
+    return tuple([item['pitch_data']
+            for item in attributes
+            if 'pitch_data' in item])
 
 def get_intervals(melody):
-    return [second - first for first, second in zip(melody, melody[1:])]
+    return tuple([second - first for first, second in zip(melody, melody[1:])])
 
 def nest_sublists(lst, length):
     """Given a flat list, create nested sublists each <= length."""
@@ -112,3 +118,4 @@ def find_all_substrings(s, shortest, longest=0):
             for length in range(shortest, longest)
             for i in range(len(s) - length + 1)]
     return substrings
+
