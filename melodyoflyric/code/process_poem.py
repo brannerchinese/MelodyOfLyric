@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # process_poem.py
 # David Prager Branner
-# 20141026
+# 20160908
 
 import os
 import read_xml as R
@@ -9,7 +9,7 @@ import utils as U
 
 def get_syllables(filename=os.path.join(
         '..', 'data', 
-        '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
+        '''sheu_ityng_pyiparshyng_20160813.xml''')):
     """Get all text syllables of poem, their tones, and their durations."""
     syllables, divisions = R.main(filename)
     syllables = [(
@@ -105,7 +105,7 @@ def avg_duration_by_place_and_pyngtzeh(syllables, divisions, places=[7]):
 
 def count_melodies(shortest, longest=0, filename=os.path.join(
             '..', 'data', 
-            '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
+            '''sheu_ityng_pyiparshyng_20160813.xml''')):
     """Report any sequences of intervals that appear more than once."""
     # QQQ not yet in test suite!
     # QQQ for lyrics in question here, not note-indices, see which_syll_is_note.
@@ -125,9 +125,9 @@ def count_melodies(shortest, longest=0, filename=os.path.join(
 
 def which_syll_is_note(filename=os.path.join(
             '..', 'data', 
-            '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
+            '''sheu_ityng_pyiparshyng_20160813.xml''')):
     """What syllables do the notes returned by count_melodies correspond to?"""
-    # QQQ These numbers do not yet math the output of count_melodies.
+    # QQQ These numbers do not yet match the output of count_melodies.
     # QQQ Not yet in test suite!
     syllables, divisions = R.main(filename)
     # Eliminate rests.

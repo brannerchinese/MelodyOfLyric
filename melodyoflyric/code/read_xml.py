@@ -13,7 +13,7 @@ import utils as U
 
 def main(filename=os.path.join(
         '..', 'data', 
-        '''sheu_ityng_pyiparshyng_20141031_edited_thru_meas_191.xml''')):
+        '''sheu_ityng_pyiparshyng_20160813.xml''')):
     xml_notes, divisions = get_notes(filename)
     note_attr_list = [
             get_note_attrs(xml_note, divisions) for xml_note in xml_notes]

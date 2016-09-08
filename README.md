@@ -11,7 +11,7 @@ Needed here:
 
 ### Tests still needed:
 
- 1. For `untested_code.py`. Move this code do `process_poem.py`.
+ 1. For `untested_code.py`. Move this code into `process_poem.py`.
  1. For `utils.get_melody()` and `utils.get_intervals()`.
  1. For `process_poem.count_melodies()`.
 
